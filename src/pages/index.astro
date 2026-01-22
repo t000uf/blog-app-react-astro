@@ -1,11 +1,19 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { client } from '../lib/microcms.js';
+import BlogList from '../components/bloglist.jsx';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Fetch blog data from microCMS
+const response = await client.get({ 
+  endpoint: 'blog',
+  queries: { fields: 'id,title' }
+});
+
+//debugging response
+console.log(response);
 ---
 
 <Layout>
-	<Welcome />
+	<h1>ブログ一覧</h1>
+	<BlogList client:load blogs={response.contents}>
 </Layout>
