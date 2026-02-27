@@ -1,5 +1,5 @@
-import microcms from 'microcms-js-sdk';
-const { createClient } = microcms;
+//import microcms from 'microcms-js-sdk';
+import { createClient } from 'microcms-js-sdk';
 
 export const client = createClient({
   serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
@@ -10,8 +10,12 @@ export const client = createClient({
 export type Blog = {
   id: string;
   title: string;
+  description: string;
   content: string;
-  createdAt: string;
-  updatedAt: string;
-  // microCMSで追加したフィールドがあればここに足す
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  thumbnail?: {
+    url: string;
+  };
 };
