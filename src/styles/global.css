@@ -1,1 +1,15 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-main-blue: #83C3C3; 
+  --color-sub-pink: #ECDDEB;
+  --color-text-main: #0D0D0D;
+  --color-bg-main: #D4CDC1;
+  --title-text: "Zen Kurenaido";
+  --main-text: "Zen Kaku Gothic New";
+}
+
+:root {
+  scrollbar-gutter: stable;
+}

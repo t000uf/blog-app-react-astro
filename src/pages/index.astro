@@ -1,19 +1,14 @@
 ---
-import { client } from '../lib/microcms.js';
-import BlogList from '../components/bloglist.jsx';
-import Layout from '../layouts/Layout.astro';
+import IndexPage from '@components/IndexPage';
+import { client } from '@lib/microcms';
+import Layout from '@/layouts/Layout.astro';
 
-// Fetch blog data from microCMS
-const response = await client.get({ 
-  endpoint: 'blog',
-  queries: { fields: 'id,title' }
-});
-
-//debugging response
-console.log(response);
+// サーバー側でデータを取得
+const response = await client.get({ endpoint: 'blog' });
+const blogs = response.contents;
+console.log(blogs)
 ---
 
 <Layout>
-	<h1>ブログ一覧</h1>
-	<BlogList client:load blogs={response.contents}>
+  <IndexPage blogs={blogs} client:load />
 </Layout>
