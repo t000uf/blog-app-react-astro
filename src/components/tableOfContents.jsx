@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function TableOfContents({ contents }) {
 
   const styles = {
-    tableOfContents: 'bg-slate-100 rounded-2xl p-6 box-border opacity-75'
+    tableOfContents: 'w-full h-full lg:w-4/12 lg:sticky top-20'
   }
 
   const [toc, setToc] = useState([])
+  const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
     const parser = new DOMParser()
     const parsedHTML = parser.parseFromString(contents, 'text/html')
 
     const headings = Array.from(parsedHTML.querySelectorAll('h2, h3'))
-    const tocData = headings.map((heading) => (
-      {
+    const tocData = headings.map((heading) => ({
         text: heading.textContent,
         id: heading.id,
         level: heading.tagName.toLowerCase(),
@@ -26,17 +26,29 @@ export default function TableOfContents({ contents }) {
   if (toc.length === 0) return null
 
   return (
-    <div className={`${styles.tableOfContents} mb-5`}>
-      <h3 className="text-xl">もくじ</h3>
-      <ul>
-        {toc.map((item, index) => (
-          <li key={index} className={item.level === 'h3' ? 'ml-4' : 'ml-2'}>
-            <a href={`#${item.id}`} className="text-blue-600 hover:underline">
-              {item.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <aside className={styles.tableOfContents}>
+        <button onClick={() => setIsOpen(!isOpen)} className="w-full bg-slate-100 rounded-2xl p-4 opacity-75 mb-5">
+          {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
+        </button>
+        {isOpen && (
+          <div className="bg-slate-100 rounded-2xl p-4 opacity-75">
+          <h3 className="text-xl">もくじ</h3>
+          <ul>
+            <a href="">{contents.title}</a>
+            {toc.map((item, index) => (
+              <li key={index} className={item.level === 'h3' ? 'ml-4' : 'ml-2'}>
+                <a href={`#${item.id}`} className="text-blue-600 hover:underline">
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        )}
+
+      </aside>
+
+    </>
   )
 }
