@@ -1,11 +1,11 @@
-import "../styles/global.css";
+import '../styles/global.css';
 
 export default function Header() {
   const styles = {
-    header: "fixed bg-main-blue w-full p-3 z-50",
-    headerInner: "m-auto max-w-10/12 lg:max-w-5xl",
-    headerText: "text-3xl color-text-main font-(family-name:--font-title)",
-  }
+    header: 'fixed bg-main-blue w-full p-3 z-50',
+    headerInner: 'm-auto max-w-10/12 lg:max-w-5xl',
+    headerText: 'text-3xl color-text-main font-(family-name:--font-title)',
+  };
 
   return (
     <header class={styles.header}>
@@ -15,5 +15,5 @@ export default function Header() {
         </a>
       </div>
     </header>
-  )
+  );
 }
