@@ -1,12 +1,12 @@
 import BlogList from './bloglist.jsx';
 
 export default function IndexPage({ blogs }) {
-  return(
+  return (
     <>
       <div>
-        <h1 className="text-2xl mb-7">aa</h1>
+        <h1 className="mb-7 text-2xl">aa</h1>
       </div>
-      <BlogList client:load blogs={ blogs } />
+      <BlogList client:load blogs={blogs} />
     </>
-  )
+  );
 }

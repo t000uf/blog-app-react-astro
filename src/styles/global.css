@@ -1,13 +1,13 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 @theme {
-  --color-main-blue: #83C3C3; 
-  --color-sub-pink: #ECDDEB;
-  --color-text-main: #0D0D0D;
-  --color-bg-main: #D4CDC1;
-  --font-title: "Zen Kurenaido";
-  --main-text: "Zen Kaku Gothic New";
+  --color-main-blue: #83c3c3;
+  --color-sub-pink: #ecddeb;
+  --color-text-main: #0d0d0d;
+  --color-bg-main: #d4cdc1;
+  --font-title: 'Zen Kurenaido';
+  --main-text: 'Zen Kaku Gothic New';
 }
 
 @layer base {
@@ -18,10 +18,11 @@
   }
 
   /* 見出しの共通ルール */
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply tracking-tight;
     scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
   }
-
-
 }
