@@ -1,22 +1,39 @@
+---
+import ClientRouter from "astro/components/ClientRouter.astro";
+import '@fontsource/zen-kaku-gothic-new'
+import '@fontsource/zen-kurenaido';
+import "../styles/global.css";
+import Header from '@components/Header';
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>〇〇ぶろぐ</title>
+		<ClientRouter />
 	</head>
-	<body>
-		<slot />
+	<body class="size-full bg-bg-main">
+		<Header></Header>
+		<div class="main-wrapper">
+			<div class="content-body">
+				<slot />
+			</div>
+		</div>
 	</body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+	@reference "@/styles/global.css";
+
+	.main-wrapper {
+		@apply flex justify-center size-full p-3.5
+	}
+
+	.content-body {
+		@apply flex-1 max-w-10/12 lg:max-w-5xl lg:w-9/12 mt-15
 	}
 </style>
