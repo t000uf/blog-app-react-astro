@@ -1,8 +1,11 @@
 ---
 import "@/styles/global.css";
 import { client } from '../../lib/microcms.js';
-import Layout from '../../layouts/Layout.astro';import { type Blog } from '../../lib/microcms.ts';
+import { type Blog } from '../../lib/microcms.ts';
 import { formatDate } from '@/lib/utils';
+
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from "@/components/tableOfContents";
 
 export async function getStaticPaths() {
   const response = await client.get({ endpoint: "blog" });
@@ -38,14 +41,15 @@ const { blog } = Astro.props as { blog: Blog };
             <p class="">{formatDate(blog.publishedAt)}</p>
           </div>
         </div>
-        <article class="prose prose-lg max-w-none">
-          <div class="articleWrapper">
+        <div class="articleWithToc">
+          <article class="articleWrapper">
             <h2 class="text-xl">概要</h2>
             <p>{blog.description}</p>
             <h2 class="text-xl">本文</h2>
             <div set:html={blog.content} />
-          </div>
           </article>
+          <TableOfContents contents={blog.content} client:load />
+        </div>
       </main>
     </Layout>
   </body>
@@ -62,7 +66,11 @@ const { blog } = Astro.props as { blog: Blog };
     @apply w-full aspect-video bg-blue-400 object-cover
   }
 
+  .articleWithToc {
+    @apply w-full flex flex-col-reverse lg:flex-row justify-between gap-5
+  }
+
   .articleWrapper {
-    @apply bg-slate-100 rounded-2xl p-6 box-border opacity-75
+    @apply bg-slate-100 rounded-2xl p-6 box-border opacity-75 max-w-none lg:max-w-8/12 prose
   }
 </style>
