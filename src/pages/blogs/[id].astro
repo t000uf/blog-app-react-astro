@@ -48,7 +48,12 @@ const { blog } = Astro.props as { blog: Blog };
             <h2 class="text-xl">本文</h2>
             <div set:html={blog.content} />
           </article>
-          <TableOfContents contents={blog.content} client:load />
+          <TableOfContents
+            blogId={blog.id}
+            title={blog.title}
+            contents={blog.content}
+            client:load
+          />
         </div>
       </main>
     </Layout>
@@ -67,7 +72,7 @@ const { blog } = Astro.props as { blog: Blog };
   }
 
   .articleWithToc {
-    @apply w-full flex flex-col-reverse lg:flex-row justify-between gap-5
+    @apply w-full flex flex-col-reverse lg:flex-row justify-between gap-2.5 lg:gap-5
   }
 
   .articleWrapper {
