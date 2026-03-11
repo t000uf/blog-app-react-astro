@@ -1,14 +1,14 @@
 ---
-import "@/styles/global.css";
+import '@/styles/global.css';
 import { client } from '@/lib/microcms.js';
 import { type Blog } from '@/lib/microcms.ts';
 import { formatDate } from '@/lib/utils';
 
 import Layout from '@/layouts/Layout.astro';
-import { TableOfContents } from "@/components/TableOfContents";
+import { TableOfContents } from '@/components/TableOfContents';
 
 export async function getStaticPaths() {
-  const response = await client.get({ endpoint: "blog" });
+  const response = await client.get({ endpoint: 'blog' });
   return response.contents.map((blog: Blog) => ({
     params: { id: blog.id },
     props: { blog },
@@ -18,19 +18,20 @@ export async function getStaticPaths() {
 const { blog } = Astro.props as { blog: Blog };
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>{blog.title} | 〇〇ぶろぐ</title>
     <meta charset="UTF-8" />
-  </head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
+  >
+
   <body>
     <Layout>
       <main class="">
         <div class="thumbnailWrapper">
-          <img 
-            src={blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : ""}
+          <img
+            src={blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : ''}
             alt=""
             loading="lazy"
             decoding="async"
@@ -64,18 +65,18 @@ const { blog } = Astro.props as { blog: Blog };
   @reference "@/styles/global.css";
 
   .thumbnailWrapper {
-    @apply bg-sub-pink rounded-2xl box-border opacity-75 mb-5 overflow-hidden;
+    @apply bg-sub-pink mb-5 box-border overflow-hidden rounded-2xl opacity-75;
   }
 
   .thumbnailImg {
-    @apply w-full aspect-video bg-blue-400 object-cover
+    @apply aspect-video w-full bg-blue-400 object-cover;
   }
 
   .articleWithToc {
-    @apply w-full flex flex-col-reverse lg:flex-row justify-between gap-2.5 lg:gap-5
+    @apply flex w-full flex-col-reverse justify-between gap-2.5 lg:flex-row lg:gap-5;
   }
 
   .articleWrapper {
-    @apply bg-slate-100 rounded-2xl p-6 box-border opacity-75 max-w-none lg:max-w-8/12 prose
+    @apply prose box-border max-w-none rounded-2xl bg-slate-100 p-6 opacity-75 lg:max-w-8/12;
   }
 </style>
