@@ -3,6 +3,7 @@ import ClientRouter from 'astro/components/ClientRouter.astro';
 import '@/styles/fonts.js';
 import '@/styles/global.css';
 import { Header } from '@components/Header';
+import { Background } from '@/components/Background';
 ---
 
 <!doctype html>
@@ -15,7 +16,8 @@ import { Header } from '@components/Header';
     <title>〇〇ぶろぐ</title>
     <ClientRouter />
   </head>
-  <body class="bg-bg-main size-full">
+  <body>
+    <Background />
     <Header />
     <div class="main-wrapper">
       <div class="content-body">
