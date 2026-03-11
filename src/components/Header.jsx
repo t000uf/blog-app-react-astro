@@ -1,6 +1,6 @@
-import '../styles/global.css';
+import '@/styles/global.css';
 
-export default function Header() {
+export const Header = () => {
   const styles = {
     header: 'fixed bg-main-blue w-full p-3 z-50',
     headerInner: 'm-auto max-w-10/12 lg:max-w-5xl',
@@ -16,4 +16,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};

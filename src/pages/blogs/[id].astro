@@ -1,11 +1,11 @@
 ---
 import "@/styles/global.css";
-import { client } from '../../lib/microcms.js';
-import { type Blog } from '../../lib/microcms.ts';
+import { client } from '@/lib/microcms.js';
+import { type Blog } from '@/lib/microcms.ts';
 import { formatDate } from '@/lib/utils';
 
-import Layout from '../../layouts/Layout.astro';
-import TableOfContents from "@/components/tableOfContents";
+import Layout from '@/layouts/Layout.astro';
+import { TableOfContents } from "@/components/TableOfContents";
 
 export async function getStaticPaths() {
   const response = await client.get({ endpoint: "blog" });

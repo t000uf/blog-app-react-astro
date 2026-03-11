@@ -1,6 +1,6 @@
-import BlogList from './bloglist.jsx';
+import { BlogList } from '@/components/BlogList';
 
-export default function IndexPage({ blogs }) {
+export const IndexPage = ({ blogs }) => {
   return (
     <>
       <div>
@@ -9,4 +9,4 @@ export default function IndexPage({ blogs }) {
       <BlogList client:load blogs={blogs} />
     </>
   );
-}
+};
