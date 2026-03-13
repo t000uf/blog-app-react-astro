@@ -16,5 +16,12 @@
         "parser": "astro"
       }
     }
+  ],
+  "tailwindConfig": "./tailwind.config.mjs",
+  "tailwindAttributes": [
+    "className"
+  ],
+  "tailwindFunctions": [
+    "cn"
   ]
 }
