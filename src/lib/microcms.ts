@@ -18,4 +18,20 @@ export type Blog = {
   thumbnail?: {
     url: string;
   };
+  author: Author;
+};
+
+export type Author = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  name: string;
+  profile: string;
+  image: {
+    url: string;
+    height: number;
+    width: number;
+  };
 };
