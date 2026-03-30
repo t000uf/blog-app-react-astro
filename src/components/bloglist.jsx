@@ -7,8 +7,8 @@ const styles = {
 export const BlogList = ({ blogs }) => {
   return (
     <ul className={styles.blogList}>
-      {blogs.map((blog) => (
-        <BlogTile blog={blog} key={blog.id} />
+      {blogs.map((blog, index) => (
+        <BlogTile blog={blog} key={blog.id} isHero={index === 0} />
       ))}
     </ul>
   );
