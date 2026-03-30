@@ -4,7 +4,11 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "printWidth": 100,
-  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "plugins": [
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss"
+  ],
+  "astroAllowShorthand": true,
   "overrides": [
     {
       "files": "*.astro",
@@ -12,5 +16,12 @@
         "parser": "astro"
       }
     }
+  ],
+  "tailwindConfig": "./tailwind.config.mjs",
+  "tailwindAttributes": [
+    "className"
+  ],
+  "tailwindFunctions": [
+    "cn"
   ]
 }
