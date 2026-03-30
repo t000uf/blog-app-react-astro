@@ -1,4 +1,4 @@
-import { AuthorCard } from './AuthorCard';
+import { AuthorCard } from '@/components';
 
 export const Introduction = ({ admin }) => {
   return (

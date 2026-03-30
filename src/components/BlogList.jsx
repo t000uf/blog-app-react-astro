@@ -1,4 +1,4 @@
-import { BlogTile } from '@components/BlogTile';
+import { BlogTile } from '@components';
 
 const styles = {
   blogList: 'grid lg:grid-cols-3 md:grid-cols-2 gap-5',

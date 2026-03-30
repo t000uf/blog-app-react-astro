@@ -1,5 +1,4 @@
-import { BlogList } from '@/components/BlogList';
-import { Introduction } from './Introduction';
+import { BlogList, Introduction } from '@/components';
 
 const styles = {
   listContainer: 'bg-slate-100/75 rounded-2xl p-5 box-border shadow-lg',
