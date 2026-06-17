@@ -18,48 +18,38 @@ export async function getStaticPaths() {
 const { blog } = Astro.props as { blog: Blog };
 ---
 
-<!doctype html>
-<html>
-  <head>
-    <title>{blog.title} | 〇〇ぶろぐ</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
-  >
-
-  <body>
-    <Layout>
-      <main class="">
-        <div class="thumbnailWrapper">
-          <img
-            src={blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : ''}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            class="thumbnailImg"
-          />
-          <div class="p-5">
-            <h1 class="text-3xl font-bold">{blog.title}</h1>
-            <p class="">{formatDate(blog.publishedAt)}</p>
-          </div>
-        </div>
-        <div class="articleWithToc">
-          <article class="articleWrapper">
-            <h2 class="text-xl">概要</h2>
-            <p>{blog.description}</p>
-            <h2 class="text-xl">本文</h2>
-            <div set:html={blog.content} />
-          </article>
-          <TableOfContents
-            blogId={blog.id}
-            title={blog.title}
-            contents={blog.content}
-            client:load
-          />
-        </div>
-      </main>
-    </Layout>
-  </body>
-</html>
+<Layout
+  title={blog.title}
+  description={blog.description}
+  image={blog.thumbnail?.url}
+  type="article"
+  publishedTime={new Date(blog.publishedAt).toISOString()}
+>
+  <main class="">
+    <div class="thumbnailWrapper">
+      <img
+        src={blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : ''}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="thumbnailImg"
+      />
+      <div class="p-5">
+        <h1 class="text-3xl font-bold">{blog.title}</h1>
+        <p class="">{formatDate(blog.publishedAt)}</p>
+      </div>
+    </div>
+    <div class="articleWithToc">
+      <article class="articleWrapper">
+        <h2 class="text-xl">概要</h2>
+        <p>{blog.description}</p>
+        <h2 class="text-xl">本文</h2>
+        <div set:html={blog.content} />
+      </article>
+      <TableOfContents blogId={blog.id} title={blog.title} contents={blog.content} client:load />
+    </div>
+  </main>
+</Layout>
 
 <style>
   @reference "@/styles/global.css";
