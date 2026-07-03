@@ -29,6 +29,22 @@
   /* 形状 */
   --radius-panel: 20px; /* カード・パネル共通 */
   --radius-chip: 999px; /* タグ・バッジ・ナビピル */
+
+  /* ダークモード(参考案・適用方式は未確定) */
+  --color-bg-dark: #211c17; /* 焦げ茶ベース(無彩色グレーは不使用) */
+  --color-bg-deep-dark: #191510;
+  --color-surface-dark: #2c2620; /* カード面。bgよりわずかに明るく */
+  --color-surface-2-dark: #362f26; /* コード等の入れ子面 */
+  --color-border-dark: #453c30;
+
+  --color-teal-dark: #85bcb3; /* 彩度そのまま・少し明るく調整 */
+  --color-teal-strong-dark: #a9d9cf; /* 暗面での可読性を優先 */
+  --color-teal-tint-dark: #2a3d38;
+  --color-pink-dark: #cfa9c1;
+  --color-pink-strong-dark: #e5bcd8;
+
+  --color-text-dark: #ece3d6; /* 温かいオフホワイト */
+  --color-text-sub-dark: #a89a89;
 }
 
 @layer base {
