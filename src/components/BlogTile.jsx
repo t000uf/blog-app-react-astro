@@ -7,7 +7,7 @@ export const BlogTile = ({ blog, isHero = 'false' }) => {
 
   const styles = {
     blogTile: cn(
-      'bg-sub-pink group relative flex flex-col rounded-2xl shadow-md',
+      'bg-pink group relative flex flex-col rounded-2xl shadow-md',
       'transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
       'hover:-translate-y-2 hover:shadow-xl hover:outline hover:outline-dashed hover:outline-2 hover:outline-offset-4 hover:outline-stone-300/60',
       isHero ? 'md:col-span-full md:flex-row' : 'col-span-1 flex-col',
