@@ -2,17 +2,38 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --color-main-blue: #83c3c3;
-  --color-sub-pink: #ecddeb;
-  --color-text-main: #3b3b3b;
-  --color-bg-main: #d4cdc1;
-  --font-title: 'Zen Kurenaido';
-  --main-text: 'Zen Kaku Gothic New';
+  /* 背景・面 */
+  --color-bg: #ece3d3;
+  --color-bg-deep: #e1d6c2; /* ブロブ用グラデ下端 */
+  --color-surface: #faf6ee; /* カード・パネル面 */
+  --color-surface-2: #f1e8da; /* コードブロック等の入れ子面 */
+  --color-border: #e4d9c8; /* 面の細い境界線 */
+
+  /* ブランド・差し色(既存のmain-blue/sub-pinkを整理・改名) */
+  --color-teal: #8fbfb7;
+  --color-teal-strong: #57938a; /* リンク・TOC現在地・タグ文字 */
+  --color-teal-tint: #dcece8; /* タグの背景 */
+  --color-pink: #e6cdd8;
+  --color-pink-strong: #a86e91; /* 注目バッジ・フッター現在地 */
+
+  /* テキスト */
+  --color-text: #4a423a;
+  --color-text-sub: #9c9082;
+
+  /* フォント */
+  --font-brand: 'Zen Kurenaido'; /* ロゴ・カード見出しのみ */
+  --font-heading: 'Noto Sans JP'; /* 本文中の見出し全般 */
+  --font-body: 'Zen Kaku Gothic New'; /* 本文 */
+  --font-mono: 'Space Mono'; /* 日付・コード・数値 */
+
+  /* 形状 */
+  --radius-panel: 20px; /* カード・パネル共通 */
+  --radius-chip: 999px; /* タグ・バッジ・ナビピル */
 }
 
 @layer base {
   html {
-    @apply text-text-main bg-bg-main font-(family-name:--main-text);
+    @apply text-text bg-bg font-(family-name:--font-body);
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }

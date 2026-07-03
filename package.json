@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@fontsource/noto-sans-jp": "^5.2.9",
+    "@fontsource/space-mono": "^5.2.9",
     "@fontsource/zen-kaku-gothic-new": "^5.2.7",
     "@fontsource/zen-kurenaido": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
