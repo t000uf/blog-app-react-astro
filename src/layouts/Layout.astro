@@ -2,7 +2,7 @@
 import ClientRouter from 'astro/components/ClientRouter.astro';
 import '@/styles/fonts.js';
 import '@/styles/global.css';
-import { Header, Background } from '@/components';
+import { Header, Footer, Background } from '@/components';
 
 interface Props {
   title?: string;
@@ -60,12 +60,13 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   </head>
   <body>
     <Background />
-    <Header />
+    <Header currentPath={Astro.url.pathname} />
     <div class="main-wrapper">
       <div class="content-body">
         <slot />
       </div>
     </div>
+    <Footer />
   </body>
 </html>
 
@@ -73,7 +74,7 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   @reference "@/styles/global.css";
 
   .main-wrapper {
-    @apply flex size-full justify-center p-5 lg:p-10;
+    @apply text-text flex size-full justify-center p-5 lg:p-10;
   }
 
   .content-body {
