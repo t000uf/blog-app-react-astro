@@ -53,29 +53,34 @@ export const TableOfContents = ({ blogId, title, contents }) => {
       <aside className={styles.tableOfContents}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="mb-2.5 w-full rounded-2xl bg-slate-100/75 p-4 font-bold lg:mb-5"
+          className="bg-surface rounded-panel mb-2.5 w-full p-4 font-bold shadow-lg lg:mb-4"
         >
           {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
         </button>
         {isOpen && (
-          <div className="rounded-2xl bg-slate-100/75 p-4">
-            <h3 className="mb-2 text-lg font-bold">もくじ</h3>
+          <div className="bg-surface rounded-panel p-4 shadow-lg">
+            <h3 className="mb-2 text-xl font-bold">もくじ</h3>
             <ul>
-              <a href={`/blogs/${blogId}`} className="text-xl">
+              <a href={`/blogs/${blogId}`} className="mb-2 text-xl font-bold">
                 {title}
               </a>
-              {toc.map((item, index) => (
-                <li key={index} className={item.level === 'h3' ? 'ml-2' : 'text-lg'}>
-                  <a
-                    href={`#${item.id}`}
-                    className={`underline transition-all duration-300 hover:text-cyan-600 ${
-                      activeId === item.id ? 'translate-x-1 font-bold text-cyan-600' : ''
-                    }`}
-                  >
-                    {item.text}
-                  </a>
-                </li>
-              ))}
+              {toc.map((item, index) => {
+                const isActive = activeId === item.id;
+                const activeColor = item.level === 'h2' ? 'text-teal-strong' : 'text-pink-strong';
+                return (
+                  <li key={index} className={item.level === 'h3' ? 'ml-4' : 'text-lg'}>
+                    <a
+                      href={`#${item.id}`}
+                      className={`hover:text-teal-strong underline transition-all duration-300 ${
+                        isActive ? `${activeColor} translate-x-1 font-bold` : ''
+                      }`}
+                    >
+                      {isActive && <span aria-hidden="true">● </span>}
+                      {item.text}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

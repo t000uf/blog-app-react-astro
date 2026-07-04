@@ -1,10 +1,17 @@
 import '@/styles/global.css';
+import { cn } from '@/lib/utils';
 
-export const Header = () => {
+const NAV_LINKS = [
+  { label: '記事一覧', href: '/' },
+  { label: 'プロフィール', href: '#' },
+];
+
+export const Header = ({ currentPath = '/' }) => {
   const styles = {
-    header: 'fixed bg-teal/75 w-full p-3 z-50 backdrop-blur-xs',
-    headerInner: 'flex m-auto max-w-10/12 lg:max-w-5xl',
-    headerText: 'w-fit text-3xl color-text-main font-(family-name:--font-title)',
+    header: 'w-full border-b border-teal bg-bg/75 p-3 z-50',
+    headerInner: 'flex items-center justify-between m-auto max-w-10/12 lg:max-w-5xl h-16',
+    headerText: 'w-fit text-3xl text-text font-brand',
+    nav: 'hidden md:block flex gap-1',
   };
 
   return (
@@ -13,6 +20,20 @@ export const Header = () => {
         <a href="/" className={styles.headerText}>
           〇〇ぶろぐ
         </a>
+        <nav className={styles.nav}>
+          {NAV_LINKS.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              className={cn(
+                'rounded-chip hover:bg-bg-deep px-4 py-1.5 transition-colors',
+                currentPath === href ? 'bg-pink text-pink-strong font-bold' : 'text-text',
+              )}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );

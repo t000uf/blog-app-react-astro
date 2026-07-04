@@ -18,7 +18,8 @@ export type Blog = {
   thumbnail?: {
     url: string;
   };
-  author: Author;
+  tags?: { id: string; name: string }[];
+  author: Author | null;
 };
 
 export type Author = {
