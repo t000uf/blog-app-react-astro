@@ -62,4 +62,51 @@
     @apply tracking-tight;
     scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
   }
+
+  /* 記事本文(prose)の見た目。ArticleBody.jsxのみで使用 */
+  .prose {
+    --tw-prose-body: var(--color-text);
+    --tw-prose-headings: var(--color-text);
+    --tw-prose-bold: var(--color-text);
+    --tw-prose-links: var(--color-teal-strong);
+    --tw-prose-bullets: var(--color-teal-strong);
+    --tw-prose-hr: var(--color-border);
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-heading;
+  }
+
+  .prose h2 {
+    @apply border-teal mb-3 mt-8 border-b pb-2 text-lg font-bold;
+  }
+
+  .prose h3 {
+    @apply border-pink-strong mb-2 mt-6 border-b pb-2 text-base font-bold;
+  }
+
+  .prose h4 {
+    @apply mb-2 mt-4 font-bold;
+  }
+
+  .prose p {
+    @apply my-2 leading-relaxed;
+  }
+
+  .prose pre {
+    @apply bg-surface-2 rounded-panel overflow-x-auto;
+  }
+
+  .prose code {
+    @apply text-teal-strong font-mono;
+  }
+
+  .prose table {
+    @apply block max-w-full overflow-x-auto;
+  }
+
+  /* 縦長画像がPCで縦に伸びすぎないよう高さ基準で制限 */
+  .prose img {
+    @apply mx-auto max-h-[32rem] w-auto object-contain;
+  }
 }
