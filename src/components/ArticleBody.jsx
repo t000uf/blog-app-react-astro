@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils';
 import { AuthorCard } from '@/components/AuthorCard';
 
-const headingClass = 'font-heading mb-4 text-xl font-bold text-text-sub';
+const headingClass = 'font-heading mb-4 text-lg font-bold text-text-sub md:text-xl';
 
 const proseClass = cn(
-  'prose max-w-none',
+  'prose max-w-none wrap-break-word',
   '[--tw-prose-body:var(--color-text)] [--tw-prose-headings:var(--color-text)]',
   '[--tw-prose-bold:var(--color-text)] [--tw-prose-links:var(--color-teal-strong)]',
   '[--tw-prose-bullets:var(--color-teal-strong)] [--tw-prose-hr:var(--color-border)]',
@@ -13,13 +13,14 @@ const proseClass = cn(
   'prose-h3:border-pink-strong prose-h3:mb-2 prose-h3:mt-6 prose-h3:border-b prose-h3:pb-2 prose-h3:text-base prose-h3:font-bold',
   'prose-h4:mb-2 prose-h4:mt-4 prose-h4:font-bold',
   'prose-p:my-2 prose-p:leading-relaxed',
-  'prose-pre:bg-surface-2 prose-pre:rounded-panel',
+  'prose-pre:bg-surface-2 prose-pre:rounded-panel prose-pre:overflow-x-auto',
   'prose-code:text-teal-strong prose-code:font-mono',
+  'prose-table:block prose-table:max-w-full prose-table:overflow-x-auto',
 );
 
 export const ArticleBody = ({ description, content, author }) => {
   return (
-    <article className="bg-surface rounded-panel lg:max-w-8/12 box-border p-6 shadow-lg">
+    <article className="bg-surface rounded-panel lg:max-w-8/12 box-border min-w-0 p-4 shadow-lg md:p-6">
       {description && (
         <>
           <h2 className={headingClass}>概要</h2>

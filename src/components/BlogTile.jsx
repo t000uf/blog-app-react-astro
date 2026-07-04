@@ -8,21 +8,21 @@ export const BlogTile = ({ blog, isHero = false }) => {
 
   const styles = {
     blogTile: cn(
-      'bg-surface rounded-panel group relative flex flex-col shadow-sm',
+      'bg-surface rounded-panel group relative flex min-w-0 flex-col shadow-sm',
       'transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
       'hover:-translate-y-1 hover:shadow-xl',
       isHero
         ? 'border-pink border-2 md:col-span-full md:flex-row'
         : 'border-teal col-span-1 flex-col border',
     ),
-    tileImgWrap: cn('rounded-panel w-full overflow-hidden', isHero && 'lg:w-2/5 lg:shrink-0'),
+    tileImgWrap: cn('rounded-panel w-full overflow-hidden', isHero && 'md:w-2/5 md:shrink-0'),
     tileImg: cn(
       'bg-surface-2 aspect-3/2 w-full object-cover',
       'ease-[cubic-bezier(0.34, 1.56, 0.64, 1)] transition-transform duration-500 will-change-transform',
       'group-hover:scale-110',
     ),
-    tileText: cn('w-full p-5'),
-    tileTitle: cn('wrap-break-word font-brand truncate text-2xl'),
+    tileText: cn('w-full p-4 md:p-5'),
+    tileTitle: cn('wrap-break-word font-brand truncate text-xl md:text-2xl'),
     tileTitleUnderline: cn(
       'mb-2 block h-0.5 w-0 transition-all duration-300 group-hover:w-full',
       isHero ? 'bg-teal' : 'bg-pink',
