@@ -53,12 +53,12 @@ export const TableOfContents = ({ blogId, title, contents }) => {
       <aside className={styles.tableOfContents}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-surface rounded-panel mb-2.5 w-full p-4 font-bold shadow-lg lg:mb-4"
+          className="bg-surface rounded-panel w-full p-4 font-bold shadow-lg"
         >
           {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
         </button>
         {isOpen && (
-          <div className="bg-surface rounded-panel p-4 shadow-lg">
+          <div className="bg-surface rounded-panel mt-4 p-4 shadow-lg">
             <h3 className="mb-2 text-xl font-bold">もくじ</h3>
             <ul>
               <a href={`/blogs/${blogId}`} className="mb-2 text-xl font-bold">
