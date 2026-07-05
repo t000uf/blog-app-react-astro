@@ -45,7 +45,7 @@ export const TableOfContents = ({ blogId, title, contents }) => {
   if (toc.length === 0) return null;
 
   const styles = {
-    tableOfContents: 'w-full h-full lg:w-4/12 lg:sticky top-20',
+    tableOfContents: 'w-full h-full lg:w-4/12 lg:sticky lg:top-10',
   };
 
   return (
@@ -53,12 +53,17 @@ export const TableOfContents = ({ blogId, title, contents }) => {
       <aside className={styles.tableOfContents}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-surface rounded-panel w-full p-4 font-bold shadow-lg"
+          aria-expanded={isOpen}
+          className="bg-surface rounded-panel w-full p-4 font-bold shadow-lg lg:hidden"
         >
           {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
         </button>
-        {isOpen && (
-          <div className="bg-surface rounded-panel mt-4 p-4 shadow-lg">
+        <div
+          className={`grid transition-[grid-template-rows,margin-top] duration-300 ease-in-out ${
+            isOpen ? 'mt-4 grid-rows-[1fr] lg:mt-0' : 'mt-0 grid-rows-[0fr]'
+          }`}
+        >
+          <div className="bg-surface rounded-panel p-4 shadow-lg">
             <h3 className="mb-2 text-xl font-bold">もくじ</h3>
             <ul>
               <a href={`/blogs/${blogId}`} className="mb-2 text-xl font-bold">
@@ -83,7 +88,7 @@ export const TableOfContents = ({ blogId, title, contents }) => {
               })}
             </ul>
           </div>
-        )}
+        </div>
       </aside>
     </>
   );
