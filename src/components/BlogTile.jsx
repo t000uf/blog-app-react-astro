@@ -1,4 +1,4 @@
-import { cn, formatDate } from '@/lib/utils';
+import { cn, formatDate, stripHtml } from '@/lib/utils';
 import { TagList } from '@/components/Tag';
 
 export const BlogTile = ({ blog, isHero = false }) => {
@@ -48,7 +48,7 @@ export const BlogTile = ({ blog, isHero = false }) => {
         <h2 className={styles.tileTitle}>{blog.title}</h2>
         <span className={styles.tileTitleUnderline} />
         <p className={styles.tileDate}>{date}</p>
-        {blog.description && <p className="line-clamp-3 w-full">{blog.description}</p>}
+        <p className="line-clamp-3 w-full">{blog.description || stripHtml(blog.content)}</p>
         <a href={`/blogs/${blog.id}`} className={styles.tileAnchor}></a>
       </div>
     </li>
