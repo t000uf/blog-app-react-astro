@@ -65,30 +65,33 @@ export const TableOfContents = ({ blogId, title, contents }) => {
             isOpen ? 'mt-4 grid-rows-[1fr] lg:mt-0' : 'mt-0 grid-rows-[0fr]'
           }`}
         >
-          <div className="bg-surface rounded-panel p-4 shadow-lg">
-            <h3 className="mb-2 text-xl font-bold">もくじ</h3>
-            <ul>
-              <a href={`/blogs/${blogId}`} className="mb-2 text-xl font-bold">
-                {title}
-              </a>
-              {toc.map((item, index) => {
-                const isActive = activeId === item.id;
-                const activeColor = item.level === 'h2' ? 'text-teal-strong' : 'text-pink-strong';
-                return (
-                  <li key={index} className={item.level === 'h3' ? 'ml-4' : 'text-lg'}>
-                    <a
-                      href={`#${item.id}`}
-                      className={`hover:text-teal-strong underline transition-all duration-300 ${
-                        isActive ? `${activeColor} translate-x-1 font-bold` : ''
-                      }`}
-                    >
-                      {isActive && <span aria-hidden="true">● </span>}
-                      {item.text}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+          <div className="overflow-hidden">
+            <div className="bg-surface rounded-panel p-4 shadow-lg">
+              <h3 className="mb-2 text-xl font-bold">もくじ</h3>
+              <ul>
+                <a href={`/blogs/${blogId}`} className="mb-2 text-xl font-bold">
+                  {title}
+                </a>
+                {toc.map((item, index) => {
+                  const isActive = activeId === item.id;
+                  const activeColor =
+                    item.level === 'h2' ? 'text-teal-strong' : 'text-pink-strong';
+                  return (
+                    <li key={index} className={item.level === 'h3' ? 'ml-4' : 'text-lg'}>
+                      <a
+                        href={`#${item.id}`}
+                        className={`hover:text-teal-strong underline transition-all duration-300 ${
+                          isActive ? `${activeColor} translate-x-1 font-bold` : ''
+                        }`}
+                      >
+                        {isActive && <span aria-hidden="true">● </span>}
+                        {item.text}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </aside>
