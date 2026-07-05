@@ -32,7 +32,7 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
@@ -74,10 +74,10 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   @reference "@/styles/global.css";
 
   .main-wrapper {
-    @apply text-text flex size-full justify-center p-5 lg:p-10;
+    @apply text-text flex size-full justify-center p-5 md:p-10;
   }
 
   .content-body {
-    @apply mt-15 max-w-10/12 flex-1 lg:w-9/12 lg:max-w-5xl;
+    @apply md:max-w-10/12 w-full flex-1 lg:w-9/12 lg:max-w-5xl;
   }
 </style>

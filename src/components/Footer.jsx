@@ -9,7 +9,7 @@ const FOOTER_LINKS = [
 export const Footer = () => {
   const styles = {
     footer: 'w-full p-5 text-center',
-    inner: 'm-auto max-w-10/12 lg:max-w-5xl',
+    inner: 'm-auto w-full md:max-w-10/12 lg:max-w-5xl',
     title: 'text-2xl text-text font-brand',
     divider: 'my-4 border-t border-teal',
     nav: 'flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4',

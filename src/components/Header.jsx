@@ -9,7 +9,8 @@ const NAV_LINKS = [
 export const Header = ({ currentPath = '/' }) => {
   const styles = {
     header: 'w-full border-b border-teal bg-bg/75 p-3 z-50',
-    headerInner: 'flex items-center justify-between m-auto max-w-10/12 lg:max-w-5xl h-16',
+    headerInner:
+      'flex items-center justify-between m-auto w-full px-2 md:px-0 md:max-w-10/12 lg:max-w-5xl md:h-16',
     headerText: 'w-fit text-3xl text-text font-brand',
     nav: 'hidden md:block flex gap-1',
   };
