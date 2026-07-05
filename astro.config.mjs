@@ -9,7 +9,7 @@ import path from 'path';
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://example.com',
+  site: process.env.SITE_URL || 'https://blog.t000uf.net',
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
