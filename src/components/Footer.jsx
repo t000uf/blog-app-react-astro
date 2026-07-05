@@ -1,5 +1,3 @@
-import '@/styles/global.css';
-
 const FOOTER_LINKS = [
   { label: 'プロフィール', href: '#' },
   { label: '記事一覧', href: '/' },

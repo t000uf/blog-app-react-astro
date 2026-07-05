@@ -1,4 +1,3 @@
-import '@/styles/global.css';
 import { cn, formatDate } from '@/lib/utils';
 import { TagList } from '@/components/Tag';
 
