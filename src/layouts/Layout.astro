@@ -12,8 +12,8 @@ interface Props {
   publishedTime?: string;
 }
 
-const SITE_NAME = '〇〇ぶろぐ';
-const DEFAULT_DESCRIPTION = 'ようこそ〇〇のブログへ';
+const SITE_NAME = 'にゃずろぐ';
+const DEFAULT_DESCRIPTION = '東福なずなのブログサイトです。';
 
 const {
   title,
@@ -60,7 +60,7 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   </head>
   <body>
     <Background />
-    <Header currentPath={Astro.url.pathname} />
+    <Header currentPath={Astro.url.pathname} siteName={SITE_NAME} />
     <div class="main-wrapper">
       <div class="content-body">
         <slot />

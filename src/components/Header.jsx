@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: 'プロフィール', href: '#' },
 ];
 
-export const Header = ({ currentPath = '/' }) => {
+export const Header = ({ currentPath = '/', siteName }) => {
   const styles = {
     header: 'w-full border-b border-teal bg-bg/75 p-3 z-50',
     headerInner:
@@ -19,7 +19,7 @@ export const Header = ({ currentPath = '/' }) => {
     <header className={styles.header}>
       <div className={styles.headerInner}>
         <a href="/" className={styles.headerText}>
-          〇〇ぶろぐ
+          {siteName}
         </a>
         <nav className={styles.nav}>
           {NAV_LINKS.map(({ label, href }) => (
