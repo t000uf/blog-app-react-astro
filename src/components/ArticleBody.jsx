@@ -1,4 +1,5 @@
 import { AuthorCard } from '@/components/AuthorCard';
+import { resizeMicrocmsImages } from '@/lib/utils';
 
 const headingClass = 'font-heading mb-4 text-lg font-bold text-text-sub md:text-xl';
 
@@ -14,7 +15,7 @@ export const ArticleBody = ({ description, content, author }) => {
         </>
       )}
       <h2 className={headingClass}>本文</h2>
-      <div className={proseClass} dangerouslySetInnerHTML={{ __html: content }} />
+      <div className={proseClass} dangerouslySetInnerHTML={{ __html: resizeMicrocmsImages(content) }} />
       {author && (
         <div className="mt-4">
           <h2 className={headingClass}>書いたひと</h2>

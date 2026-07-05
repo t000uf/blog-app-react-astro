@@ -13,3 +13,22 @@ export const formatDate = (dateString: string): string => {
     day: '2-digit',
   }).format(date);
 };
+
+const MICROCMS_IMAGE_HOST = 'images.microcms-assets.io';
+
+// 記事本文(リッチエディタのHTML)内のMicroCMS画像にリサイズ用クエリを付与する
+export const resizeMicrocmsImages = (html: string): string => {
+  if (!html) return html;
+  return html.replace(/<img([^>]*?)src="([^"]+)"([^>]*)>/g, (match, before, src, after) => {
+    let url: URL;
+    try {
+      url = new URL(src);
+    } catch {
+      return match;
+    }
+    if (url.hostname !== MICROCMS_IMAGE_HOST) return match;
+    if (!url.searchParams.has('w')) url.searchParams.set('w', '800');
+    if (!url.searchParams.has('fm')) url.searchParams.set('fm', 'webp');
+    return `<img${before}src="${url.toString()}"${after}>`;
+  });
+};
