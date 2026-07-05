@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { label: '記事一覧', href: '/' },
-  { label: 'プロフィール', href: '#' },
+  { label: 'このブログについて', href: '/about' },
 ];
 
 export const Header = ({ currentPath = '/', siteName }) => {
