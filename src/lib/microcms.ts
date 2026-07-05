@@ -12,9 +12,9 @@ export type Blog = {
   title: string;
   description: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
   thumbnail?: {
     url: string;
   };

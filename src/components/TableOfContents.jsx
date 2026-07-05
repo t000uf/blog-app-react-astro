@@ -17,6 +17,8 @@ export const TableOfContents = ({ blogId, title, contents }) => {
     }));
     setToc(tocData);
 
+    if (tocData.length === 0) return;
+
     // highlight
     setActiveId(tocData[0].id);
     const observer = new IntersectionObserver(
