@@ -22,8 +22,11 @@ export const BlogTile = ({ blog, isHero = false }) => {
       // isHeroの横並び時はアスペクト比固定をやめ、カード高さいっぱいに伸ばす
       isHero && 'md:aspect-auto md:h-full md:min-h-60',
     ),
-    tileText: cn('flex w-full flex-col justify-center gap-2 p-4', isHero && 'justify-center gap-3'),
-    tileTitle: cn('wrap-break-word font-brand truncate text-xl md:text-2xl'),
+    tileText: cn(
+      'flex w-full min-w-0 flex-col justify-center gap-2 p-4',
+      isHero && 'justify-center gap-3',
+    ),
+    tileTitle: cn('wrap-break-word font-body truncate text-xl font-bold lg:text-2xl'),
     tileTitleUnderline: cn(
       'block h-0.5 w-0 transition-all duration-300 group-hover:w-full',
       isHero ? 'bg-teal' : 'bg-pink',

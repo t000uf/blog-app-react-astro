@@ -74,10 +74,10 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   @reference "@/styles/global.css";
 
   .main-wrapper {
-    @apply text-text flex size-full justify-center p-5 md:p-10;
+    @apply text-text flex size-full justify-center px-3 py-4 lg:p-10;
   }
 
   .content-body {
-    @apply md:max-w-10/12 w-full flex-1 lg:w-9/12 lg:max-w-5xl;
+    @apply md:max-w-11/12 flex w-full flex-1 flex-col gap-4 lg:w-9/12 lg:max-w-5xl;
   }
 </style>

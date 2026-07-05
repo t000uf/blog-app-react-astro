@@ -1,6 +1,6 @@
 const FOOTER_LINKS = [
-  { label: 'このブログについて', href: 'about' },
   { label: '記事一覧', href: '/' },
+  { label: 'このブログについて', href: 'about' },
 ];
 
 export const Footer = ({ siteName }) => {
@@ -17,7 +17,9 @@ export const Footer = ({ siteName }) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <p className={styles.title}>{siteName}</p>
+        <a className={styles.title} href="/">
+          {siteName}
+        </a>
         <hr className={styles.divider} />
         <nav className={styles.nav}>
           {FOOTER_LINKS.map(({ label, href }) => (
