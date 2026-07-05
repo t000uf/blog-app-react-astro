@@ -62,7 +62,6 @@
     @apply tracking-tight;
     scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
   }
-
 }
 
 /*
@@ -84,11 +83,11 @@
 }
 
 .prose :is(h1, h2, h3, h4, h5, h6) {
-  @apply font-heading;
+  @apply font-heading my-2;
 }
 
 .prose h2 {
-  @apply border-teal mb-3 mt-8 border-b pb-2 text-lg font-bold;
+  @apply border-teal mb-3 mt-4 border-b pb-2 text-lg font-bold;
 }
 
 .prose h3 {
