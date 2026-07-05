@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="ページが見つかりません">
+  <section class="not-found">
+    <p class="code">404</p>
+    <h1 class="heading">ページが見つかりません</h1>
+    <p class="lead">
+      お探しのページは削除されたか、URLが変更された可能性があります。
+    </p>
+    <a href="/" class="home-link">トップへ戻る</a>
+  </section>
+</Layout>
+
+<style>
+  @reference "@/styles/global.css";
+
+  .not-found {
+    @apply bg-surface rounded-panel flex flex-col items-center p-8 text-center shadow-lg md:p-12;
+  }
+
+  .code {
+    @apply font-mono text-text-sub text-6xl font-bold md:text-7xl;
+  }
+
+  .heading {
+    @apply font-heading text-text mt-4 text-xl font-bold md:text-2xl;
+  }
+
+  .lead {
+    @apply text-text-sub mt-3 leading-relaxed;
+  }
+
+  .home-link {
+    @apply rounded-chip bg-pink text-pink-strong hover:bg-bg-deep mt-6 px-5 py-2 font-bold transition-colors;
+  }
+</style>
