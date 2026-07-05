@@ -83,7 +83,10 @@
 
 - 記事詳細の本文パネル(`bg-surface rounded-panel`)。
 - 構造見出し(`概要` / `本文` / `書いたひと`)は `headingClass`(`text-text-sub`, レスポンシブサイズ)で統一。`書いたひと` は `author` がある場合のみ表示。
-- CMS本文(`dangerouslySetInnerHTML`)は `.prose` クラスでラップし、見出し階層スタイルは **`global.css` の `@layer base` 内で `.prose h2/h3/h4` として一括定義**(コンポーネント側に `@apply`/CSSファイルを持たない)。
+- CMS本文(`dangerouslySetInnerHTML`)は `.prose` クラスでラップし、見出し階層スタイルは **`global.css` のレイヤー外(`@layer base` の外)で `.prose h2/h3/h4` として一括定義**(コンポーネント側に `@apply`/CSSファイルを持たない)。
+  - **注意**: typographyプラグインは`.prose`セレクタ自身に`--tw-prose-*`のデフォルト値一式(body/headings/bold/links/bullets/counters/hr/code/pre-bg/pre-code等)を`utilities`レイヤーで宣言している。`@layer base`内に同じ上書きを書くと詳細度に関係なく負ける(カスケードレイヤーは後のレイヤー優先)ため、`.prose`の上書きは必ずレイヤー外に置くこと。
+  - 色の上書きは生プロパティ(`.prose pre { background-color: ... }`等)ではなく、対応する`--tw-prose-*`変数(`--tw-prose-bullets`/`--tw-prose-counters`/`--tw-prose-code`/`--tw-prose-pre-bg`/`--tw-prose-pre-code`等)を`.prose {}`ブロックで設定するのが第一選択。margin/font-size/border等(変数を持たないプロパティ)のみ`h2`/`h3`等への直接上書きでよい。
+  - blockquote/table/kbdは現状CMS本文に出てこないため未設定。将来使う場合は同様に`--tw-prose-quotes`/`--tw-prose-th-borders`/`--tw-prose-kbd`等の変数で対応する。
 
 ### 本文中の見出し階層(`.prose`, `global.css`)
 
