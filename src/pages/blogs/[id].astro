@@ -29,7 +29,7 @@ const { blog } = Astro.props as { blog: Blog };
   <main>
     <a
       href="/"
-      class="hover:text-teal-strong mb-3 inline-block text-sm transition-colors duration-300"
+      class="hover:text-teal-strong mb-3 inline-block underline transition-colors duration-300"
       >← 記事一覧へ</a
     >
     <ArticleHero {blog} />
@@ -44,6 +44,6 @@ const { blog } = Astro.props as { blog: Blog };
   @reference "@/styles/global.css";
 
   .articleWithToc {
-    @apply flex w-full flex-col-reverse justify-between gap-2.5 lg:flex-row lg:gap-5;
+    @apply flex w-full flex-col-reverse justify-between gap-4 lg:flex-row lg:gap-5;
   }
 </style>
