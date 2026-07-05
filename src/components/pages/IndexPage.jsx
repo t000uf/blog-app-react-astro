@@ -10,7 +10,7 @@ export const IndexPage = ({ blogs, admin }) => {
     <>
       <Introduction admin={admin} />
       <main className={styles.listContainer}>
-        <h2 className="mb-4 text-xl md:text-2xl">記事一覧</h2>
+        <h2 className="font-heading text-text-sub mb-4 text-lg font-bold md:text-xl">記事一覧</h2>
         <BlogList blogs={blogs} />
       </main>
     </>
