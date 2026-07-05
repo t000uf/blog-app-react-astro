@@ -3,9 +3,7 @@ import '@/styles/global.css';
 import { client, type Blog } from '@/lib/microcms';
 
 import Layout from '@/layouts/Layout.astro';
-import { ArticleHero } from '@/components/ArticleHero';
-import { ArticleBody } from '@/components/ArticleBody';
-import { TableOfContents } from '@/components/TableOfContents';
+import { DetailPage } from '@/components';
 
 export async function getStaticPaths() {
   const response = await client.get({ endpoint: 'blog' });
@@ -25,24 +23,5 @@ const { blog } = Astro.props as { blog: Blog };
   type="article"
   publishedTime={new Date(blog.updatedAt).toISOString()}
 >
-  <main>
-    <a
-      href="/"
-      class="hover:text-teal-strong mb-3 inline-block underline transition-colors duration-300"
-      >← 記事一覧へ</a
-    >
-    <ArticleHero {blog} />
-    <div class="articleWithToc">
-      <ArticleBody description={blog.description} content={blog.content} author={blog.author} />
-      <TableOfContents blogId={blog.id} title={blog.title} contents={blog.content} client:load />
-    </div>
-  </main>
+  <DetailPage blog={blog} client:load />
 </Layout>
-
-<style>
-  @reference "@/styles/global.css";
-
-  .articleWithToc {
-    @apply flex w-full flex-col-reverse justify-between gap-4 lg:flex-row;
-  }
-</style>
