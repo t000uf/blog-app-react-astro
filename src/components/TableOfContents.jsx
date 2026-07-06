@@ -78,18 +78,11 @@ export const TableOfContents = ({ blogId, title, contents }) => {
   return (
     <>
       <aside className={styles.tableOfContents}>
-        <button
-          onClick={toggle}
-          aria-expanded={isOpen}
-          className="bg-surface rounded-panel w-full p-4 font-bold shadow-lg lg:hidden"
-        >
-          {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
-        </button>
         <div
           onTransitionEnd={handleTransitionEnd}
           style={{ height: height === 'auto' ? 'auto' : `${height}px` }}
           className={`transition-[height,margin-top] duration-300 ease-in-out ${
-            isOpen ? 'mt-4 lg:mt-0' : 'mt-0'
+            isOpen ? 'mb-4 lg:mb-0' : 'mb-0'
           } ${height === 'auto' ? '' : 'overflow-hidden'}`}
         >
           <div ref={contentRef}>
@@ -120,6 +113,13 @@ export const TableOfContents = ({ blogId, title, contents }) => {
             </div>
           </div>
         </div>
+        <button
+          onClick={toggle}
+          aria-expanded={isOpen}
+          className="bg-surface rounded-panel w-full p-4 font-bold shadow-lg lg:hidden"
+        >
+          {!isOpen ? 'もくじを表示する' : 'もくじを隠す'}
+        </button>
       </aside>
     </>
   );
