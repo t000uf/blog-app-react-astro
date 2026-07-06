@@ -111,8 +111,39 @@
   @apply my-2 leading-relaxed;
 }
 
+/* コードブロック。ファイル名バー(任意)とShikiの<pre>を1つの角丸コンテナにまとめる。
+   背景色・文字色はShikiがインラインstyleで付与するため、ここはレイアウト面のみ整える。 */
+.prose .code-block {
+  @apply rounded-panel bg-surface-2 m-2 overflow-hidden;
+}
+
+.prose .code-filename {
+  @apply text-text-sub border-border border-b px-4 py-2 font-mono text-xs;
+}
+
+/* 非スクロールの相対配置。中の<pre>だけ横スクロールさせ、コピーボタンは固定する。 */
+.prose .code-body {
+  @apply relative;
+}
+
+.prose .copy-button {
+  @apply border-border bg-surface/80 text-text-sub rounded-chip absolute right-2 top-2 border px-2 py-1 font-mono text-xs backdrop-blur transition-colors;
+  @apply hover:bg-surface hover:text-text cursor-pointer;
+}
+
+/* コピー成功/失敗時の一時的な状態(クラスはArticleBody側で付け外しする) */
+.prose .copy-button.is-copied {
+  @apply border-teal text-teal-strong;
+}
+
+.prose .copy-button.is-failed {
+  @apply border-pink-strong text-pink-strong;
+}
+
+/* コンテナ側でマージンと角丸を持つため、<pre>自身の縦マージンは打ち消す。
+   縦スクロールは「高さの上限」と「overflow」を同じ要素(=スクロールさせたい<pre>)に付ける。 */
 .prose pre {
-  @apply rounded-panel overflow-x-auto;
+  @apply my-0 max-h-[35dvh] overflow-auto p-4 text-sm leading-relaxed;
 }
 
 .prose code {

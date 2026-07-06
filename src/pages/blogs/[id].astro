@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import { client, type Blog } from '@/lib/microcms';
+import { highlightCodeBlocks } from '@/lib/highlight';
 
 import Layout from '@/layouts/Layout.astro';
 import { DetailPage } from '@/components';
@@ -14,6 +15,8 @@ export async function getStaticPaths() {
 }
 
 const { blog } = Astro.props as { blog: Blog };
+// コードブロックのシンタックスハイライトはビルド時(Astro側)に適用してから島へ渡す
+const content = await highlightCodeBlocks(blog.content);
 ---
 
 <Layout
@@ -23,5 +26,5 @@ const { blog } = Astro.props as { blog: Blog };
   type="article"
   publishedTime={new Date(blog.updatedAt).toISOString()}
 >
-  <DetailPage {blog} client:load />
+  <DetailPage blog={{ ...blog, content }} client:load />
 </Layout>
