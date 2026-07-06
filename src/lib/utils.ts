@@ -5,8 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatDate = (dateString: string): string => {
+export const formatDate = (dateString?: string): string => {
+  if (!dateString) return '';
   const date = new Date(dateString);
+  // 未公開の下書きは publishedAt を持たないなど、日付が欠落/不正なケースがある。
+  // Intl.DateTimeFormat は Invalid Date で例外を投げSSRごと落とすため、事前に弾く。
+  if (Number.isNaN(date.getTime())) return '';
   return new Intl.DateTimeFormat('ja-JP', {
     year: 'numeric',
     month: '2-digit',
