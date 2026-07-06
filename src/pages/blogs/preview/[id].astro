@@ -1,0 +1,46 @@
+---
+import '@/styles/global.css';
+import { getBlogDraft, type Blog, type MicroCMSEnv } from '@/lib/microcms';
+
+import Layout from '@/layouts/Layout.astro';
+import { DetailPage } from '@/components';
+
+// このルートだけリクエスト時レンダリング（SSR）。draftKey は毎回発行される
+// 動的な値なので、ビルド時の getStaticPaths では取得できない。
+export const prerender = false;
+
+const { id } = Astro.params;
+const draftKey = Astro.url.searchParams.get('draftKey');
+
+// draftKey は秘匿トークン。無ければ（＝下書きプレビュー以外のアクセス）404。
+if (!id || !draftKey) {
+  return new Response(null, { status: 404 });
+}
+
+// 本番は Cloudflare のランタイム env、ローカル dev は import.meta.env にフォールバック。
+// platformProxy 有効時は runtime が空オブジェクトでも存在するため、キー単位で解決する。
+const runtimeEnv = (Astro.locals as { runtime?: { env: MicroCMSEnv } }).runtime?.env;
+const env: MicroCMSEnv = {
+  MICROCMS_SERVICE_DOMAIN:
+    runtimeEnv?.MICROCMS_SERVICE_DOMAIN ?? import.meta.env.MICROCMS_SERVICE_DOMAIN,
+  MICROCMS_API_KEY: runtimeEnv?.MICROCMS_API_KEY ?? import.meta.env.MICROCMS_API_KEY,
+};
+
+let blog: Blog;
+try {
+  blog = await getBlogDraft(env, id, draftKey);
+} catch {
+  return new Response(null, { status: 404 });
+}
+---
+
+<Layout
+  title={blog.title}
+  description={blog.description}
+  image={blog.thumbnail?.url}
+  type="article"
+  publishedTime={new Date(blog.updatedAt).toISOString()}
+  noindex
+>
+  <DetailPage {blog} client:load />
+</Layout>

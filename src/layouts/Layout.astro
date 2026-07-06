@@ -10,6 +10,7 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  noindex?: boolean;
 }
 
 const SITE_NAME = 'にゃずろぐ';
@@ -21,6 +22,7 @@ const {
   image,
   type = 'website',
   publishedTime,
+  noindex = false,
 } = Astro.props as Props;
 
 const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
@@ -37,7 +39,8 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
 
     <meta property="og:type" content={type} />
     <meta property="og:title" content={pageTitle} />
