@@ -20,7 +20,9 @@ export const ArticleHero = ({ blog }) => {
       <div className="bg-linear-to-t absolute inset-x-0 bottom-0 flex flex-col gap-2 from-black/70 to-transparent p-4 pt-12 md:p-5 md:pt-16">
         <TagList tags={blog.tags} />
         <h1 className="font-body text-xl font-bold text-white md:text-3xl">{blog.title}</h1>
-        <p className="font-mono text-xs text-white/80 md:text-sm">{formatDate(blog.publishedAt)}</p>
+        <p className="font-mono text-xs text-white/80 md:text-sm">
+          {formatDate(blog.publishedAt ?? blog.updatedAt)}
+        </p>
       </div>
     </div>
   );
