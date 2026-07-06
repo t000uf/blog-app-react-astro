@@ -49,7 +49,7 @@
 
 @layer base {
   html {
-    @apply text-text bg-bg font-(family-name:--font-body);
+    @apply text-text bg-bg font-body selection:bg-pink;
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }
