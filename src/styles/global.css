@@ -62,6 +62,15 @@
     @apply tracking-tight;
     scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
   }
+
+  /* サムネイル画像がない記事用のプレースホルダー柄(斜めストライプ) */
+  .thumbnail-placeholder {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-surface-2) 0 10px,
+      var(--color-bg-deep) 10px 20px
+    );
+  }
 }
 
 /*
