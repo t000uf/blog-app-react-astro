@@ -7,7 +7,7 @@ const proseClass = 'prose max-w-none wrap-break-word';
 
 export const ArticleBody = ({ description, content, author }) => {
   return (
-    <article className="bg-surface rounded-panel lg:max-w-8/12 box-border min-w-0 p-4 shadow-lg md:p-6">
+    <article className="bg-surface rounded-panel lg:max-w-8/12 box-border w-full min-w-0 p-4 shadow-lg md:p-6">
       {description && (
         <>
           <h2 className={headingClass}>概要</h2>
@@ -15,7 +15,10 @@ export const ArticleBody = ({ description, content, author }) => {
         </>
       )}
       <h2 className={headingClass}>本文</h2>
-      <div className={proseClass} dangerouslySetInnerHTML={{ __html: resizeMicrocmsImages(content) }} />
+      <div
+        className={proseClass}
+        dangerouslySetInnerHTML={{ __html: resizeMicrocmsImages(content) }}
+      />
       {author && (
         <div className="mt-4">
           <h2 className={headingClass}>書いたひと</h2>
