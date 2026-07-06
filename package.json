@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "preinstall": "node -e \"if(process.env.npm_execpath?.includes('npm') || process.env.npm_execpath?.includes('yarn')) { console.error('\\n\\u26a0\\u0020Use pnpm instead of npm/yarn\\n'); process.exit(1); }\"",
+    "preinstall": "node -e \"if(!process.env.npm_config_user_agent?.startsWith('pnpm')) { console.error('\\n\\u26a0\\u0020Use pnpm instead of npm/yarn\\n'); process.exit(1); }\"",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

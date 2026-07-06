@@ -3,14 +3,14 @@ import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { label: '記事一覧', href: '/' },
-  { label: 'プロフィール', href: '#' },
+  { label: 'このブログについて', href: '/about' },
 ];
 
-export const Header = ({ currentPath = '/' }) => {
+export const Header = ({ currentPath = '/', siteName }) => {
   const styles = {
     header: 'w-full border-b border-teal bg-bg/75 p-3 z-50',
     headerInner:
-      'flex items-center justify-between m-auto w-full px-2 md:px-0 md:max-w-10/12 lg:max-w-5xl md:h-16',
+      'flex items-center justify-between m-auto w-full px-2 md:px-0 md:max-w-11/12 lg:max-w-5xl md:h-16',
     headerText: 'w-fit text-3xl text-text font-brand',
     nav: 'hidden md:flex gap-1',
   };
@@ -19,7 +19,7 @@ export const Header = ({ currentPath = '/' }) => {
     <header className={styles.header}>
       <div className={styles.headerInner}>
         <a href="/" className={styles.headerText}>
-          〇〇ぶろぐ
+          {siteName}
         </a>
         <nav className={styles.nav}>
           {NAV_LINKS.map(({ label, href }) => (

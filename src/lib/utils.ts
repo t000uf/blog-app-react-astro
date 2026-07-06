@@ -14,6 +14,22 @@ export const formatDate = (dateString: string): string => {
   }).format(date);
 };
 
+// リッチエディタのHTMLからタグを除いたプレーンテキストを取り出す。
+// 概要が無い記事カードの抜粋などに使う。SSG(Node)・クライアント両対応のため正規表現ベース。
+export const stripHtml = (html: string): string => {
+  if (!html) return '';
+  return html
+    .replace(/<[^>]*>/g, ' ') // タグ除去（ブロック境界で単語が繋がらないよう空白に）
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ') // 連続する空白を1つに畳む
+    .trim();
+};
+
 const MICROCMS_IMAGE_HOST = 'images.microcms-assets.io';
 
 // 記事本文(リッチエディタのHTML)内のMicroCMS画像にリサイズ用クエリを付与する

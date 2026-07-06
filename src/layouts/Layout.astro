@@ -12,8 +12,8 @@ interface Props {
   publishedTime?: string;
 }
 
-const SITE_NAME = '〇〇ぶろぐ';
-const DEFAULT_DESCRIPTION = 'ようこそ〇〇のブログへ';
+const SITE_NAME = 'にゃずろぐ';
+const DEFAULT_DESCRIPTION = '東福なずなのブログサイトです。';
 
 const {
   title,
@@ -60,13 +60,13 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   </head>
   <body>
     <Background />
-    <Header currentPath={Astro.url.pathname} />
+    <Header currentPath={Astro.url.pathname} siteName={SITE_NAME} />
     <div class="main-wrapper">
       <div class="content-body">
         <slot />
       </div>
     </div>
-    <Footer />
+    <Footer siteName={SITE_NAME} />
   </body>
 </html>
 
@@ -74,10 +74,10 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   @reference "@/styles/global.css";
 
   .main-wrapper {
-    @apply text-text flex size-full justify-center p-5 md:p-10;
+    @apply text-text flex size-full justify-center px-3 py-4 lg:p-10;
   }
 
   .content-body {
-    @apply md:max-w-10/12 w-full flex-1 lg:w-9/12 lg:max-w-5xl;
+    @apply md:max-w-11/12 flex w-full flex-1 flex-col gap-4 lg:w-9/12 lg:max-w-5xl;
   }
 </style>

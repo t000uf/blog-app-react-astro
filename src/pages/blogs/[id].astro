@@ -6,7 +6,7 @@ import Layout from '@/layouts/Layout.astro';
 import { DetailPage } from '@/components';
 
 export async function getStaticPaths() {
-  const response = await client.get({ endpoint: 'blog' });
+  const response = await client.get({ endpoint: 'blog', queries: { limit: 100 } });
   return response.contents.map((blog: Blog) => ({
     params: { id: blog.id },
     props: { blog },
@@ -23,5 +23,5 @@ const { blog } = Astro.props as { blog: Blog };
   type="article"
   publishedTime={new Date(blog.updatedAt).toISOString()}
 >
-  <DetailPage blog={blog} client:load />
+  <DetailPage {blog} client:load />
 </Layout>

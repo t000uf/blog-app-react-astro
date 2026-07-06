@@ -1,10 +1,9 @@
 const FOOTER_LINKS = [
-  { label: 'プロフィール', href: '#' },
   { label: '記事一覧', href: '/' },
-  { label: 'お問い合わせ', href: '#' },
+  { label: 'このブログについて', href: 'about' },
 ];
 
-export const Footer = () => {
+export const Footer = ({ siteName }) => {
   const styles = {
     footer: 'w-full p-5 text-center',
     inner: 'm-auto w-full md:max-w-10/12 lg:max-w-5xl',
@@ -18,7 +17,9 @@ export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <p className={styles.title}>〇〇ぶろぐ</p>
+        <a className={styles.title} href="/">
+          {siteName}
+        </a>
         <hr className={styles.divider} />
         <nav className={styles.nav}>
           {FOOTER_LINKS.map(({ label, href }) => (
@@ -28,7 +29,7 @@ export const Footer = () => {
           ))}
         </nav>
         <hr className={styles.divider} />
-        <p className={styles.copyright}>© 2026 〇〇ぶろぐ</p>
+        <p className={styles.copyright}>&copy; 2026 {siteName}</p>
       </div>
     </footer>
   );

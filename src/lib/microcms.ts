@@ -22,6 +22,17 @@ export type Blog = {
   author: Author | null;
 };
 
+// オブジェクト形式API（endpoint: 'about'）。リスト形式と違い contents 配列ではなく
+// オブジェクトが直接返る。プロフィール等の単一ページ用。
+export type About = {
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  body: string;
+};
+
 export type Author = {
   id: string;
   createdAt: string;

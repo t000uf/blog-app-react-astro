@@ -4,7 +4,7 @@ import { client } from '@/lib/microcms';
 import Layout from '@/layouts/Layout.astro';
 
 // サーバー側でデータを取得
-const blogsResponse = await client.get({ endpoint: 'blog' });
+const blogsResponse = await client.get({ endpoint: 'blog', queries: { limit: 100 } });
 const blogs = blogsResponse.contents;
 const admin = await client.get({
   endpoint: 'author',
@@ -13,6 +13,6 @@ const admin = await client.get({
 });
 ---
 
-<Layout description="〇〇のブログです。技術や日々のことについて書いています。">
+<Layout>
   <IndexPage {blogs} {admin} client:load />
 </Layout>
