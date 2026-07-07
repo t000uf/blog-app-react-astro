@@ -21,7 +21,7 @@ export const ArticleHero = ({ blog }) => {
         <TagList tags={blog.tags} />
         <h1 className="font-body text-xl font-bold text-white md:text-3xl">{blog.title}</h1>
         <p className="font-mono text-xs text-white/80 md:text-sm">
-          {formatDate(blog.publishedAt ?? blog.updatedAt)}
+          {formatDate(blog.updatedAt ?? blog.publishedAt)}
         </p>
       </div>
     </div>
