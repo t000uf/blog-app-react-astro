@@ -111,6 +111,12 @@
   @apply my-2 leading-relaxed;
 }
 
+/* MicroCMSで空行を入れると中身のない <p></p> が出る。空要素は高さ0に潰れて
+   空行が反映されないため、1行分の高さを確保して意図どおり空けて見せる。 */
+.prose p:empty {
+  min-height: 1lh;
+}
+
 /* コードブロック。ファイル名バー(任意)とShikiの<pre>を1つの角丸コンテナにまとめる。
    背景色・文字色はShikiがインラインstyleで付与するため、ここはレイアウト面のみ整える。 */
 .prose .code-block {
