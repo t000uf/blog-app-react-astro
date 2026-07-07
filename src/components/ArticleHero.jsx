@@ -15,7 +15,7 @@ export const ArticleHero = ({ blog }) => {
           className="bg-surface-2 aspect-video w-full object-cover"
         />
       ) : (
-        <div className="bg-surface-2 aspect-video w-full" />
+        <div className="thumbnail-placeholder aspect-video w-full" />
       )}
       <div className="bg-linear-to-t absolute inset-x-0 bottom-0 flex flex-col gap-2 from-black/70 to-transparent p-4 pt-12 md:p-5 md:pt-16">
         <TagList tags={blog.tags} />

@@ -44,7 +44,7 @@ export const BlogTile = ({ blog, isHero = false }) => {
         {imageUrl ? (
           <img src={imageUrl} alt="" loading="lazy" decoding="async" className={styles.tileImg} />
         ) : (
-          <div className={styles.tileImg} />
+          <div className={cn(styles.tileImg, 'thumbnail-placeholder')} />
         )}
       </div>
       <div className={styles.tileText}>

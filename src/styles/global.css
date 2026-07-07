@@ -49,7 +49,7 @@
 
 @layer base {
   html {
-    @apply text-text bg-bg font-(family-name:--font-body);
+    @apply text-text bg-bg font-body selection:bg-pink;
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }
@@ -61,6 +61,15 @@
   h4 {
     @apply tracking-tight;
     scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
+  }
+
+  /* サムネイル画像がない記事用のプレースホルダー柄(斜めストライプ) */
+  .thumbnail-placeholder {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-surface-2) 0 10px,
+      var(--color-bg-deep) 10px 20px
+    );
   }
 }
 
@@ -102,8 +111,45 @@
   @apply my-2 leading-relaxed;
 }
 
+/* MicroCMSで空行を入れると中身のない <p></p> が出る。空要素は高さ0に潰れて
+   空行が反映されないため、1行分の高さを確保して意図どおり空けて見せる。 */
+.prose p:empty {
+  min-height: 1lh;
+}
+
+/* コードブロック。ファイル名バー(任意)とShikiの<pre>を1つの角丸コンテナにまとめる。
+   背景色・文字色はShikiがインラインstyleで付与するため、ここはレイアウト面のみ整える。 */
+.prose .code-block {
+  @apply rounded-panel bg-surface-2 m-2 overflow-hidden;
+}
+
+.prose .code-filename {
+  @apply text-text-sub border-border border-b px-4 py-2 font-mono text-xs;
+}
+
+/* 非スクロールの相対配置。中の<pre>だけ横スクロールさせ、コピーボタンは固定する。 */
+.prose .code-body {
+  @apply relative;
+}
+
+.prose .copy-button {
+  @apply border-border bg-surface/80 text-text-sub rounded-chip absolute right-2 top-2 border px-2 py-1 font-mono text-xs backdrop-blur transition-colors;
+  @apply hover:bg-surface hover:text-text cursor-pointer;
+}
+
+/* コピー成功/失敗時の一時的な状態(クラスはArticleBody側で付け外しする) */
+.prose .copy-button.is-copied {
+  @apply border-teal text-teal-strong;
+}
+
+.prose .copy-button.is-failed {
+  @apply border-pink-strong text-pink-strong;
+}
+
+/* コンテナ側でマージンと角丸を持つため、<pre>自身の縦マージンは打ち消す。
+   縦スクロールは「高さの上限」と「overflow」を同じ要素(=スクロールさせたい<pre>)に付ける。 */
 .prose pre {
-  @apply rounded-panel overflow-x-auto;
+  @apply my-0 max-h-[35dvh] overflow-auto p-4 text-sm leading-relaxed;
 }
 
 .prose code {
