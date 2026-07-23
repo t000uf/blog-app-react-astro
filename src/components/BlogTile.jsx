@@ -1,7 +1,31 @@
+import { useEffect, useRef, useState } from 'react';
 import { cn, formatDate, stripHtml } from '@/lib/utils';
 import { TagList } from '@/components/Tag';
 
+// hoverを持たない端末(スマホ)で、要素が画面中央の帯に入ったらtrueを返す。
+// PC(hoverあり)では常にfalseのままにして、従来のCSS :hover に任せる。
+const useCenterActive = () => {
+  const ref = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !window.matchMedia('(hover: none)').matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting),
+      // 上下40%を削り、ビューポート中央の20%の帯だけをroot扱いにする
+      { rootMargin: '-40% 0px -85% 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isActive };
+};
+
 export const BlogTile = ({ blog, isHero = false }) => {
+  const { ref, isActive } = useCenterActive();
   const date = formatDate(blog.updatedAt);
   const imageUrl = blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : '';
 
@@ -10,15 +34,20 @@ export const BlogTile = ({ blog, isHero = false }) => {
       'bg-surface rounded-panel group relative flex min-w-0 flex-col overflow-hidden shadow-sm',
       'transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
       'hover:-translate-y-1 hover:shadow-xl',
+      isActive && '-translate-y-1 shadow-xl',
       isHero
         ? 'border-pink border-2 md:col-span-full md:flex-row'
         : 'border-teal col-span-1 flex-col border',
     ),
-    tileImgWrap: cn('rounded-r-panel w-full overflow-hidden', isHero && 'md:w-1/2 md:shrink-0'),
+    tileImgWrap: cn(
+      'rounded-b-panel w-full overflow-hidden',
+      isHero && 'md:rounded-r-panel md:w-1/2 md:shrink-0 md:rounded-bl-none',
+    ),
     tileImg: cn(
       'bg-surface-2 aspect-3/2 w-full object-cover',
       'ease-[cubic-bezier(0.34, 1.56, 0.64, 1)] transition-transform duration-500 will-change-transform',
       'group-hover:scale-110',
+      isActive && 'scale-110',
       // isHeroの横並び時はアスペクト比固定をやめ、カード高さいっぱいに伸ばす
       isHero && 'md:aspect-auto md:h-full md:min-h-60',
     ),
@@ -26,9 +55,10 @@ export const BlogTile = ({ blog, isHero = false }) => {
       'flex w-full min-w-0 flex-col justify-center gap-2 p-4',
       isHero && 'justify-center gap-3',
     ),
-    tileTitle: cn('wrap-break-word font-body truncate text-xl font-bold lg:text-2xl'),
+    tileTitle: cn('wrap-break-word font-body line-clamp-2 text-xl font-bold lg:text-2xl'),
     tileTitleUnderline: cn(
       'block h-0.5 w-0 transition-all duration-300 group-hover:w-full',
+      isActive && 'w-full',
       isHero ? 'bg-teal' : 'bg-pink',
     ),
     tileDate: cn('text-text-sub w-full font-mono text-xs'),
@@ -39,7 +69,7 @@ export const BlogTile = ({ blog, isHero = false }) => {
   };
 
   return (
-    <li className={styles.blogTile}>
+    <li ref={ref} className={styles.blogTile}>
       <div className={styles.tileImgWrap}>
         {imageUrl ? (
           <img src={imageUrl} alt="" loading="lazy" decoding="async" className={styles.tileImg} />
