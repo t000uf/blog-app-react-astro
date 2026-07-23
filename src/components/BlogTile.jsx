@@ -14,7 +14,10 @@ export const BlogTile = ({ blog, isHero = false }) => {
         ? 'border-pink border-2 md:col-span-full md:flex-row'
         : 'border-teal col-span-1 flex-col border',
     ),
-    tileImgWrap: cn('rounded-r-panel w-full overflow-hidden', isHero && 'md:w-1/2 md:shrink-0'),
+    tileImgWrap: cn(
+      'rounded-b-panel w-full overflow-hidden',
+      isHero && 'md:rounded-r-panel md:rounded-bl-none md:w-1/2 md:shrink-0',
+    ),
     tileImg: cn(
       'bg-surface-2 aspect-3/2 w-full object-cover',
       'ease-[cubic-bezier(0.34, 1.56, 0.64, 1)] transition-transform duration-500 will-change-transform',
