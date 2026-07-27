@@ -20,11 +20,11 @@ export const AmazonCard = ({ product, associateTag }) => {
       // sponsored: アフィリエイトリンクの表明 / nofollow: 評価を渡さない / noopener: opener乗っ取り防止
       rel="sponsored nofollow noopener"
       className={cn(
-        'bg-surface rounded-panel group border-teal not-prose flex items-center gap-4 overflow-hidden border p-4 no-underline shadow-sm',
+        'bg-surface rounded-panel border-teal not-prose group flex flex-col items-center gap-4 overflow-hidden border p-4 no-underline shadow-sm md:flex-row',
         'transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md',
       )}
     >
-      <div className="bg-surface-2 rounded-panel size-24 shrink-0 overflow-hidden md:size-28">
+      <div className="bg-surface-2 rounded-panel size-48 shrink-0 overflow-hidden p-1 md:size-28">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -34,11 +34,11 @@ export const AmazonCard = ({ product, associateTag }) => {
             className="size-full object-contain"
           />
         ) : (
-          <div className="thumbnail-placeholder size-full" />
+          <div className="thumbnail-placeholder rounded-panel size-full" />
         )}
       </div>
       <div className="flex min-w-0 flex-col gap-2">
-        <p className="text-text wrap-break-word line-clamp-3 font-bold">{product.title}</p>
+        <p className="text-text wrap-break-word line-clamp-3 text-sm font-bold">{product.title}</p>
         <span className="text-pink-strong bg-pink rounded-chip w-fit px-3 py-1 text-xs font-bold">
           Amazonで見る →
         </span>
