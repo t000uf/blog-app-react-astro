@@ -42,6 +42,23 @@ export type Blog = {
   };
   tags?: { id: string; name: string }[];
   author: Author | null;
+  products?: AmazonProduct[];
+};
+
+// microCMSの繰り返しフィールド1件ぶんのAmazon商品データ。
+// PA-APIが使えるまでは asin/title/image を手入力で持つ（Issue #55）。将来PA-API化する際は
+// この型を保ったまま取得元だけ差し替えられるよう、表示に必要な最小項目に絞っている。
+// image は thumbnail / author.image と同じmicroCMSメディア形式で、?w=...&fm=webp のリサイズが効く。
+export type AmazonProduct = {
+  // 繰り返しフィールドはカスタムフィールドのIDが fieldId として付く
+  fieldId: string;
+  asin: string;
+  title: string;
+  image: {
+    url: string;
+    height?: number;
+    width?: number;
+  };
 };
 
 // オブジェクト形式API（endpoint: 'about'）。リスト形式と違い contents 配列ではなく

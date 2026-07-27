@@ -18,11 +18,19 @@ export const formatDate = (dateString?: string): string => {
   }).format(date);
 };
 
+// リッチエディタはショートコードを <p>{{amazon:X}}</p> と段落で包むため、まず段落ごと除去する
+// 分岐を優先する（<p> が片割れで残ると後続のHTMLが壊れる）。段落に包まれない裸の記述も拾う。
+const AMAZON_SHORTCODE_RE =
+  /<p>\s*\{\{\s*amazon\s*:\s*([A-Za-z0-9]+)\s*\}\}\s*<\/p>|\{\{\s*amazon\s*:\s*([A-Za-z0-9]+)\s*\}\}/g;
+
 // リッチエディタのHTMLからタグを除いたプレーンテキストを取り出す。
 // 概要が無い記事カードの抜粋などに使う。SSG(Node)・クライアント両対応のため正規表現ベース。
 export const stripHtml = (html: string): string => {
   if (!html) return '';
   return html
+    // ショートコードはタグではないためタグ除去だけでは残ってしまう。
+    // 記事カードの抜粋に {{amazon:...}} が生で出るのを防ぐため、タグより先に落とす。
+    .replace(AMAZON_SHORTCODE_RE, ' ')
     .replace(/<[^>]*>/g, ' ') // タグ除去（ブロック境界で単語が繋がらないよう空白に）
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
@@ -32,6 +40,28 @@ export const stripHtml = (html: string): string => {
     .replace(/&#39;/g, "'")
     .replace(/\s+/g, ' ') // 連続する空白を1つに畳む
     .trim();
+};
+
+// 本文中の {{amazon:ASIN}} ショートコードで本文HTMLを分割した1区画。
+// html 区画は dangerouslySetInnerHTML で、product 区画は <AmazonCard> で描画する（Issue #55）。
+export type ArticleSegment = { type: 'html'; html: string } | { type: 'product'; asin: string };
+
+// 本文HTMLを {{amazon:ASIN}} の位置で区切り、間に商品区画を挟んだセグメント配列にする。
+// ショートコードが無ければ html 区画1つだけを返す（従来と同じ描画になる）。
+export const splitAmazonShortcodes = (html: string): ArticleSegment[] => {
+  if (!html) return [];
+  const segments: ArticleSegment[] = [];
+  let lastIndex = 0;
+  for (const m of html.matchAll(AMAZON_SHORTCODE_RE)) {
+    const asin = m[1] ?? m[2];
+    const before = html.slice(lastIndex, m.index);
+    if (before) segments.push({ type: 'html', html: before });
+    segments.push({ type: 'product', asin });
+    lastIndex = m.index! + m[0].length;
+  }
+  const rest = html.slice(lastIndex);
+  if (rest) segments.push({ type: 'html', html: rest });
+  return segments;
 };
 
 const MICROCMS_IMAGE_HOST = 'images.microcms-assets.io';

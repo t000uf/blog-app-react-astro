@@ -1,3 +1,4 @@
+export * from './AmazonCard';
 export * from './ArticleBody';
 export * from './ArticleHero';
 export * from './AuthorCard';
