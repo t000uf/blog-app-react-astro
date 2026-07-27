@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { AmazonCard } from '@/components/AmazonCard';
 import { AuthorCard } from '@/components/AuthorCard';
-import { resizeMicrocmsImages } from '@/lib/utils';
+import { resizeMicrocmsImages, splitAmazonShortcodes } from '@/lib/utils';
 
 const headingClass = 'font-heading mb-4 text-lg font-bold text-text-sub md:text-xl';
 
@@ -29,10 +30,20 @@ const copyToClipboard = async (text) => {
   }
 };
 
-export const ArticleBody = ({ description, content, author }) => {
+export const ArticleBody = ({ description, content, author, products, associateTag }) => {
   // dangerouslySetInnerHTMLで挿入したコードブロックのコピーボタンを動かす。
   // ボタンHTML自体はビルド時(highlight.ts)に埋め込み済みなので、ここではクリック処理だけを担う。
   const bodyRef = useRef(null);
+
+  // 本文を {{amazon:ASIN}} で区切り、間に商品カードを差し込むためのセグメント配列を作る。
+  // 画像リサイズは分割前に全体へ一度かける（ショートコードはimgに影響しないため順序は安全）。
+  const segments = useMemo(() => splitAmazonShortcodes(resizeMicrocmsImages(content)), [content]);
+  // ショートコードのASINから商品を引くための索引。products未設定でも空Mapで安全に動く。
+  const productByAsin = useMemo(() => {
+    const map = new Map();
+    (products ?? []).forEach((product) => map.set(product.asin, product));
+    return map;
+  }, [products]);
 
   useEffect(() => {
     const root = bodyRef.current;
@@ -78,11 +89,35 @@ export const ArticleBody = ({ description, content, author }) => {
         </>
       )}
       <h2 className={headingClass}>本文</h2>
-      <div
-        ref={bodyRef}
-        className={proseClass}
-        dangerouslySetInnerHTML={{ __html: resizeMicrocmsImages(content) }}
-      />
+      {/* bodyRefでセグメント全体を覆い、コードブロックのコピーボタン委譲を従来どおり効かせる */}
+      <div ref={bodyRef}>
+        {segments.map((segment, i) =>
+          segment.type === 'html' ? (
+            <div
+              key={i}
+              className={proseClass}
+              dangerouslySetInnerHTML={{ __html: segment.html }}
+            />
+          ) : (
+            <div key={i} className="my-6">
+              <AmazonCard
+                product={productByAsin.get(segment.asin)}
+                associateTag={associateTag}
+              />
+            </div>
+          ),
+        )}
+      </div>
+      {products?.length > 0 && (
+        <div className="mt-4">
+          <h2 className={headingClass}>紹介した商品</h2>
+          <div className="flex flex-col gap-3">
+            {products.map((product) => (
+              <AmazonCard key={product.asin} product={product} associateTag={associateTag} />
+            ))}
+          </div>
+        </div>
+      )}
       {author && (
         <div className="mt-4">
           <h2 className={headingClass}>書いたひと</h2>

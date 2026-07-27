@@ -19,12 +19,16 @@ if (!id || !draftKey) {
 
 // 本番は Cloudflare のランタイム env、ローカル dev は import.meta.env にフォールバック。
 // platformProxy 有効時は runtime が空オブジェクトでも存在するため、キー単位で解決する。
-const runtimeEnv = (Astro.locals as { runtime?: { env: MicroCMSEnv } }).runtime?.env;
+const runtimeEnv = (
+  Astro.locals as { runtime?: { env: MicroCMSEnv & { AMAZON_ASSOCIATE_TAG?: string } } }
+).runtime?.env;
 const env: MicroCMSEnv = {
   MICROCMS_SERVICE_DOMAIN:
     runtimeEnv?.MICROCMS_SERVICE_DOMAIN ?? import.meta.env.MICROCMS_SERVICE_DOMAIN,
   MICROCMS_API_KEY: runtimeEnv?.MICROCMS_API_KEY ?? import.meta.env.MICROCMS_API_KEY,
 };
+// アソシエイトタグは秘匿値ではないが、他のenvと同じ解決経路に揃える
+const associateTag = runtimeEnv?.AMAZON_ASSOCIATE_TAG ?? import.meta.env.AMAZON_ASSOCIATE_TAG;
 
 let blog: Blog;
 try {
@@ -42,5 +46,5 @@ try {
   publishedTime={new Date(blog.updatedAt).toISOString()}
   noindex
 >
-  <DetailPage {blog} client:load />
+  <DetailPage {blog} associateTag={associateTag} client:load />
 </Layout>

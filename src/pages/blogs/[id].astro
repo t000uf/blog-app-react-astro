@@ -17,6 +17,8 @@ export async function getStaticPaths() {
 const { blog } = Astro.props as { blog: Blog };
 // コードブロックのシンタックスハイライトはビルド時(Astro側)に適用してから島へ渡す
 const content = await highlightCodeBlocks(blog.content);
+// アソシエイトタグは公開値だがenvで一元管理する。ビルド時に読んでpropsで島へ渡す（Issue #55）。
+const associateTag = import.meta.env.AMAZON_ASSOCIATE_TAG;
 ---
 
 <Layout
@@ -26,5 +28,5 @@ const content = await highlightCodeBlocks(blog.content);
   type="article"
   publishedTime={new Date(blog.updatedAt).toISOString()}
 >
-  <DetailPage blog={{ ...blog, content }} client:load />
+  <DetailPage blog={{ ...blog, content }} associateTag={associateTag} client:load />
 </Layout>
