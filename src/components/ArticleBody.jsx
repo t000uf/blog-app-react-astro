@@ -45,6 +45,17 @@ export const ArticleBody = ({ description, content, author, products, associateT
     return map;
   }, [products]);
 
+  // products に無いASINを本文に書くとカードが黙って消えるだけで執筆者が気づけない。
+  // 開発時のみタイプミスを警告する（本番バンドルではこのブロックごと落ちる）。
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    segments.forEach((segment) => {
+      if (segment.type === 'product' && !productByAsin.has(segment.asin)) {
+        console.warn(`[AmazonCard] ASIN "${segment.asin}" が products に見つかりません`);
+      }
+    });
+  }, [segments, productByAsin]);
+
   useEffect(() => {
     const root = bodyRef.current;
     if (!root) return;
@@ -99,12 +110,12 @@ export const ArticleBody = ({ description, content, author, products, associateT
               dangerouslySetInnerHTML={{ __html: segment.html }}
             />
           ) : (
-            <div key={i} className="my-6">
-              <AmazonCard
-                product={productByAsin.get(segment.asin)}
-                associateTag={associateTag}
-              />
-            </div>
+            // 該当商品が無いときは余白だけの空divを残さないよう、ラッパーごと描画しない
+            productByAsin.has(segment.asin) && (
+              <div key={i} className="my-6">
+                <AmazonCard product={productByAsin.get(segment.asin)} associateTag={associateTag} />
+              </div>
+            )
           ),
         )}
       </div>
@@ -112,8 +123,13 @@ export const ArticleBody = ({ description, content, author, products, associateT
         <div className="mt-4">
           <h2 className={headingClass}>紹介した商品</h2>
           <div className="flex flex-col gap-3">
-            {products.map((product) => (
-              <AmazonCard key={product.asin} product={product} associateTag={associateTag} />
+            {/* 同じASINが2件登録されてもkeyが衝突しないよう位置を混ぜる */}
+            {products.map((product, i) => (
+              <AmazonCard
+                key={`${product.asin}-${i}`}
+                product={product}
+                associateTag={associateTag}
+              />
             ))}
           </div>
         </div>
