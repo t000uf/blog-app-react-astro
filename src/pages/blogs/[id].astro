@@ -19,6 +19,20 @@ const { blog } = Astro.props as { blog: Blog };
 const content = await highlightCodeBlocks(blog.content);
 // アソシエイトタグは公開値だがenvで一元管理する。ビルド時に読んでpropsで島へ渡す（Issue #55）。
 const associateTag = import.meta.env.AMAZON_ASSOCIATE_TAG;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: blog.title,
+  description: blog.description,
+  datePublished: new Date(blog.publishedAt).toISOString(),
+  dateModified: new Date(blog.updatedAt).toISOString(),
+  image: blog.thumbnail?.url,
+  author: blog.author
+    ? { '@type': 'Person', name: blog.author.name }
+    : undefined,
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).toString(),
+};
 ---
 
 <Layout
@@ -27,6 +41,7 @@ const associateTag = import.meta.env.AMAZON_ASSOCIATE_TAG;
   image={blog.thumbnail?.url}
   type="article"
   publishedTime={new Date(blog.updatedAt).toISOString()}
+  jsonLd={jsonLd}
 >
   <DetailPage blog={{ ...blog, content }} associateTag={associateTag} client:load />
 </Layout>

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import react from '@astrojs/react';
 import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite'
 
 import path from 'path';
@@ -18,7 +19,7 @@ export default defineConfig({
   // 強制する（未バインドの本番で SSR ルートが 500 になる）。このブログは
   // セッションを使わないため、バインディング不要な memory ドライバを明示して無効化。
   session: { driver: 'memory' },
-  integrations: [react()],
+  integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
