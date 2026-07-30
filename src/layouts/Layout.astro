@@ -11,6 +11,7 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: string;
   noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
 }
 
 const SITE_NAME = 'にゃずろぐ';
@@ -23,6 +24,7 @@ const {
   type = 'website',
   publishedTime,
   noindex = false,
+  jsonLd,
 } = Astro.props as Props;
 
 const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
@@ -36,6 +38,7 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -58,6 +61,8 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
     {import.meta.env.PROD && <ClientRouter />}
   </head>
