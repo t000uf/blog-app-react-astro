@@ -3,7 +3,7 @@ import { AmazonCard } from '@/components/AmazonCard';
 import { AuthorCard } from '@/components/AuthorCard';
 import { resizeMicrocmsImages, splitAmazonShortcodes } from '@/lib/utils';
 
-const headingClass = 'font-heading mb-4 text-lg font-bold text-text-sub md:text-xl';
+const headingClass = 'font-heading mb-2 mt-6 text-lg font-bold text-text-sub md:text-xl';
 
 const proseClass = 'prose max-w-none wrap-break-word';
 
@@ -140,6 +140,11 @@ export const ArticleBody = ({ description, content, author, products, associateT
           </div>
         </div>
       )}
+      <div className="my-4 text-center">
+        <a href="#top" className="underline">
+          ↑　上にもどる
+        </a>
+      </div>
     </article>
   );
 };
