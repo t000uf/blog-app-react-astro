@@ -2,26 +2,42 @@ import { useEffect, useRef, useState } from 'react';
 import { cn, formatDate, stripHtml } from '@/lib/utils';
 import { TagList } from '@/components/Tag';
 
-// hoverを持たない端末(スマホ)で、要素が画面中央の帯に入ったらtrueを返す。
+// ビューポートの60%〜65%を判定の帯とする。
+// 上下の削り量の合計は必ず100%未満にすること(超えると帯の高さが負になり、
+// 要素がどこにあっても永久に交差しなくなる)。
+// 画面中央(40%付近)ではなく少し下に置いているのは、記事数が少なくページが短いと
+// 最下部までスクロールしても最終タイルが画面中央まで上がりきらず、発火できないため。
+const ACTIVE_BAND = '-60% 0px -35% 0px';
+
+// hoverを持たない端末(スマホ)で、要素が上記の帯に入ったらtrueを返す。
 // PC(hoverあり)では常にfalseのままにして、従来のCSS :hover に任せる。
 const useCenterActive = () => {
   const ref = useRef(null);
-  const [isActive, setIsActive] = useState(false);
+  const [inBand, setInBand] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || !window.matchMedia('(hover: none)').matches) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsActive(entry.isIntersecting),
-      // 上下40%を削り、ビューポート中央の20%の帯だけをroot扱いにする
-      { rootMargin: '-40% 0px -85% 0px' },
-    );
+    const observer = new IntersectionObserver(([entry]) => setInBand(entry.isIntersecting), {
+      rootMargin: ACTIVE_BAND,
+    });
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // 読み込み直後に光らせないためのガード。一度スクロールするまで発火させない。
+    const onScroll = () => setHasScrolled(true);
+    window.addEventListener('scroll', onScroll, { passive: true, once: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
-  return { ref, isActive };
+  // hasScrolledはstateにする。ただのローカル変数だと、IntersectionObserverは
+  // 交差状態が変化した時しかコールバックしないため、スクロール開始時に再評価されない。
+  return { ref, isActive: hasScrolled && inBand };
 };
 
 export const BlogTile = ({ blog, isHero = false }) => {
