@@ -3,7 +3,7 @@ import { AmazonCard } from '@/components/AmazonCard';
 import { AuthorCard } from '@/components/AuthorCard';
 import { resizeMicrocmsImages, splitAmazonShortcodes } from '@/lib/utils';
 
-const headingClass = 'font-heading mb-4 text-lg font-bold text-text-sub md:text-xl';
+const headingClass = 'font-heading mb-2 mt-6 text-lg font-bold text-text-sub md:text-xl';
 
 const proseClass = 'prose max-w-none wrap-break-word';
 
@@ -119,9 +119,15 @@ export const ArticleBody = ({ description, content, author, products, associateT
           ),
         )}
       </div>
+      {author && (
+        <div className="mt-4">
+          <h2 className={headingClass}>書いたひと</h2>
+          <AuthorCard author={author} />
+        </div>
+      )}
       {products?.length > 0 && (
         <div className="mt-4">
-          <h2 className={headingClass}>紹介した商品</h2>
+          <h2 className={headingClass}>紹介したもの</h2>
           <div className="flex flex-col gap-3">
             {/* 同じASINが2件登録されてもkeyが衝突しないよう位置を混ぜる */}
             {products.map((product, i) => (
@@ -134,12 +140,11 @@ export const ArticleBody = ({ description, content, author, products, associateT
           </div>
         </div>
       )}
-      {author && (
-        <div className="mt-4">
-          <h2 className={headingClass}>書いたひと</h2>
-          <AuthorCard author={author} />
-        </div>
-      )}
+      <div className="my-4 text-center">
+        <a href="#top" className="underline">
+          ↑　上にもどる
+        </a>
+      </div>
     </article>
   );
 };
