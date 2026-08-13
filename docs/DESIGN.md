@@ -109,10 +109,18 @@ TOCの現在地カラーと対応させている:
 
 ### TableOfContents (`TableOfContents.jsx`)
 
-- 現在地ハイライト色: `h2` → `text-teal-strong` / `h3` → `text-pink-strong`。`.prose h2/h3` のボーダー色と対応。
+- 現在地ハイライト色: 記事タイトル / `h2` → `text-teal-strong`、`h3` → `text-pink-strong`。`.prose h2/h3` のボーダー色と対応。
+- 記事タイトルもハイライト対象。`ArticleHero`の`<h1 id="article-title">`を観測し、最初の`h2`より上にいる間はタイトルが現在地になる(初期値もこれ)。目次のタイトル行は`#article-title`へのアンカー。
+- `h3` にいるときは、その親の `h2` も「今いるセクション」として `text-teal-strong font-bold` でハイライトする。現在地そのもの(`●` + `translate-x-1` 付き)とは区別する。親子関係は見出し抽出時に `parentId` として持たせている。
 - `h3` は `ml-4` でインデント。
-- 見出しゼロ件なら非表示(`toc.length === 0` で `null` 返却)。
-- 開閉トグルボタン(「もくじを表示する」/「もくじを隠す」)、`lg:sticky top-20`。
+- 見出しゼロ件なら非表示(`toc.length === 0` で `null` 返却)。タイトル行だけを出すことはしない。
+- リスト部分(`TocList`)はモバイル/PCで共有。見出し抽出とスクロールスパイも`useTocHeadings`に集約しており、`IntersectionObserver`は1本だけ。
+- `sticky`は`<aside>`自身に置く(`sticky top-0 z-10 lg:top-10`)。内側のラッパーに置くと、モバイルでは中身がミニバーだけで背が低く、可動域がゼロになって効かない。可動域は`DetailPage`の記事全体を包むflexコンテナ。
+- PC(`lg`以上): サイドバー(`lg:w-4/12`)。常時展開で、閉じる操作はない。
+- モバイル(`lg`未満): 画面上部に貼り付くミニバー。バーには現在地の見出しテキストを表示し、タップで目次パネルが降りてくる。閉じる契機は「リンク選択」「Escapeキー」「パネル外タップ」「ページのスクロール開始(300ms後)」の4つ。
+  - スクロールでの自動クローズは`window`の`scroll`を`{ once: true }`で拾う。パネル内(`overflow-y-auto`)のスクロールは`window`まで上がらないので、長い目次を辿る操作では閉じない。
+  - パネルは`absolute`配置なので、開閉しても本文が押し下げられない(レイアウトシフトなし)。`max-h-[60vh] overflow-y-auto`で画面を埋めないようにしている。
+  - ミニバーは`DetailPage`の`flex-col-reverse`によりDOM上は本文の後ろにあるため、`ArticleBody`の上に描画される。
 
 ## スコープ外・未実装
 
