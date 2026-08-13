@@ -20,7 +20,7 @@ export const DetailPage = ({ blog, associateTag }) => {
           products={blog.products}
           associateTag={associateTag}
         />
-        <TableOfContents blogId={blog.id} title={blog.title} contents={blog.content} />
+        <TableOfContents title={blog.title} contents={blog.content} />
       </div>
     </main>
   );
