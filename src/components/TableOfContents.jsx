@@ -70,42 +70,35 @@ const TocList = ({ title, toc, activeId, onSelect }) => {
   const activeSectionId = toc.find((item) => item.id === activeId)?.parentId ?? activeId;
 
   return (
-    <div className="p-2">
-      <h3 className="text-text-sub mb-1 text-lg font-bold md:mb-2 md:text-xl">もくじ</h3>
+    <div>
+      <h3 className="text-accent mb-2 hidden text-lg font-medium md:block md:text-xl">もくじ</h3>
       <a
         href={`#${TITLE_ID}`}
         onClick={onSelect}
         className={cn(
-          'hover:text-teal-strong mb-1 block text-lg underline transition-all duration-300 md:mb-2',
-          activeId === TITLE_ID && 'text-teal-strong translate-x-1 font-bold',
+          'hover:text-teal-strong mb-1 block text-base transition-all duration-300 hover:underline md:mb-2',
+          activeId === TITLE_ID && 'text-teal-strong translate-x-1 font-medium',
         )}
       >
-        {activeId === TITLE_ID && <span aria-hidden="true">● </span>}
         {title}
       </a>
-      <ul className="flex flex-col gap-1">
+      <ul className="flex flex-col gap-2 md:gap-3">
         {toc.map((item) => {
           const isActive = activeId === item.id;
           // h3にいるとき、その親h2は「今いるセクション」として控えめにハイライトする
           const isActiveSection = !isActive && item.id === activeSectionId;
           const activeColor = item.level === 'h2' ? 'text-teal-strong' : 'text-pink-strong';
           return (
-            <li
-              key={item.id}
-              className={
-                item.level === 'h3' ? 'ml-4 text-sm md:text-base' : 'ml-2 text-base md:text-lg'
-              }
-            >
+            <li key={item.id} className={item.level === 'h3' ? 'ml-4 text-sm' : 'ml-2 text-base'}>
               <a
                 href={`#${item.id}`}
                 onClick={onSelect}
                 className={cn(
-                  'hover:text-teal-strong underline transition-all duration-300',
+                  'hover:text-teal-strong transition-all duration-300 hover:underline',
                   isActive && `${activeColor} translate-x-1 font-bold`,
                   isActiveSection && 'text-teal-strong font-bold',
                 )}
               >
-                {isActive && <span aria-hidden="true">● </span>}
                 {item.text}
               </a>
             </li>
@@ -165,7 +158,7 @@ const MobileToc = ({ title, toc, activeId }) => {
         aria-controls="toc-panel"
         className="bg-surface/60 border-teal-strong rounded-panel flex w-full items-center gap-2 border p-3 text-left shadow-lg backdrop-blur-xl"
       >
-        <span className="text-text-sub shrink-0 text-xs font-bold">もくじ：</span>
+        <span className="text-text-sub shrink-0 text-sm font-bold">もくじ：</span>
         <span className="truncate font-bold">{currentText}</span>
         {/* 文字の「▾」はベースライン基準で配置され、グリフの中心とボックス中心がズレる。
             rotate-180するとその差が倍になって浮くので、中心が図形として保証されるSVGを使う */}
@@ -213,7 +206,7 @@ export const TableOfContents = ({ title, contents }) => {
     // stickyはaside自身に置いて、親(DetailPageの記事全体を包むflex)を可動域にする。
     <aside className="sticky top-2 z-10 w-full lg:top-10 lg:w-4/12">
       <MobileToc title={title} toc={toc} activeId={activeId} />
-      <div className="bg-surface rounded-panel sticky top-4 hidden p-4 shadow-lg lg:block">
+      <div className="sticky top-4 hidden lg:block">
         <TocList title={title} toc={toc} activeId={activeId} />
       </div>
     </aside>

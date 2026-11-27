@@ -1,10 +1,11 @@
 import { ArticleHero } from '@/components/ArticleHero';
 import { ArticleBody } from '@/components/ArticleBody';
 import { TableOfContents } from '@/components/TableOfContents';
+import { WaveBand } from '@/components/WaveBand';
 
 export const DetailPage = ({ blog, associateTag }) => {
   return (
-    <main>
+    <WaveBand topSeed={5} bottomSeed={2}>
       <a
         href="/"
         className="hover:text-teal-strong mb-3 inline-block underline transition-colors duration-300"
@@ -22,6 +23,6 @@ export const DetailPage = ({ blog, associateTag }) => {
         />
         <TableOfContents title={blog.title} contents={blog.content} />
       </div>
-    </main>
+    </WaveBand>
   );
 };
