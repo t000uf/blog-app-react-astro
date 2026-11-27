@@ -15,7 +15,7 @@ export const WaveBand = ({ topSeed, bottomSeed, className = '', children }) => (
       aria-hidden="true"
       className="bg-surface fill-surface absolute inset-y-0 left-1/2 -z-50 w-screen -translate-x-1/2"
     >
-      {/* シードを変えると波の形が変わる。ページごとに変えて表情を付ける */}
+      {/* シードを変えると波の形が変わる(呼び出し側のページで指定する) */}
       <WaveEdge seed={topSeed} position="top" />
       <WaveEdge seed={bottomSeed} position="bottom" />
     </div>

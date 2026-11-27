@@ -52,8 +52,8 @@ export const BlogTile = ({ blog, isHero = false }) => {
       'group relative flex min-w-0 flex-col',
       isHero ? 'md:col-span-full md:flex-row' : 'col-span-1',
     ),
-    // カードの面がなくなったので、角丸と枠線は画像自身が持つ(拡大時のはみ出しもここでクリップ)。
-    // 枠の色は従来のカード枠と同じ: 通常=ティール細枠 / ヒーロー=ピンク太枠
+    // 角丸と枠線は画像のラッパーが持つ(拡大時のはみ出しもここでクリップ)。
+    // 通常=ティール1px枠 / ヒーロー=ピンク2px枠
     tileImgWrap: cn(
       'rounded-panel w-full overflow-hidden',
       isHero ? 'border-pink border-2 md:w-1/2 md:shrink-0' : 'border-teal border',
@@ -63,7 +63,7 @@ export const BlogTile = ({ blog, isHero = false }) => {
       'transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
       'group-hover:scale-105',
       isActive && 'scale-105',
-      // isHeroの横並び時はアスペクト比固定をやめ、カード高さいっぱいに伸ばす
+      // isHeroの横並び時は16:9を基本に、カードの高さに合わせて伸ばす(最低min-h-60)
       isHero && 'md:aspect-16/9 md:h-full md:min-h-60',
     ),
     tileText: cn(

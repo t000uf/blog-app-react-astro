@@ -5,7 +5,7 @@
   /* 背景・面 */
   --color-bg: #f6f3ee;
   --color-bg-deep: #ece6dc; /* ブロブ用グラデ下端 */
-  --color-surface: #fffdf9; /* カード・パネル面 */
+  --color-surface: #fffdf9; /* 面(WaveBandの帯・目次のバー/パネル・コピーボタン) */
   --color-surface-2: #f1e8da; /* コードブロック等の入れ子面 */
   --color-border: #e4d9c8; /* 面の細い境界線 */
   --color-stripe: #e1d6c2; /* サムネのプレースホルダ柄の濃い側(背景を白寄りにする前のbg-deepの値) */
@@ -13,24 +13,24 @@
   /* ブランド・差し色(既存のmain-blue/sub-pinkを整理・改名) */
   --color-teal: #8fbfb7;
   --color-teal-strong: #57938a; /* リンク・TOC現在地・タグ文字 */
-  --color-teal-tint: #dcece8; /* タグの背景 */
+  --color-teal-tint: #dcece8; /* 現状未使用(旧タグピルの背景) */
   --color-pink: #e6cdd8;
-  --color-pink-strong: #a86e91; /* 注目バッジ・フッター現在地 */
+  --color-pink-strong: #a86e91; /* 「新着記事」ラベル・TOC h3現在地・Amazonリンク */
 
   /* テキスト */
   --color-text: #4a423a;
   --color-text-sub: #9c9082;
 
   /* フォント */
-  --font-brand: 'Zen Kurenaido'; /* ロゴ・カード見出しのみ */
-  --font-heading: 'Noto Sans JP'; /* 本文中の見出し全般 */
+  --font-brand: 'Zen Kurenaido'; /* ロゴ・トップの「かんりにん」見出し */
+  --font-heading: 'Noto Sans JP'; /* 日付(記事カード・記事ヒーロー)・404見出し */
   --font-body: 'Zen Kaku Gothic New'; /* 本文 */
-  --font-accent: 'Zen Maru Gothic'; /* アクセント */
-  --font-mono: 'Space Mono'; /* 日付・コード・数値 */
+  --font-accent: 'Zen Maru Gothic'; /* 見出し全般(カードタイトル・記事タイトル・本文見出し・目次) */
+  --font-mono: 'Space Mono'; /* コード・コピーボタン・404の数字 */
 
   /* 形状 */
-  --radius-panel: 20px; /* カード・パネル共通 */
-  --radius-chip: 999px; /* タグ・バッジ・ナビピル */
+  --radius-panel: 20px; /* 画像・コードブロック・目次のバー等 */
+  --radius-chip: 999px; /* 現状未使用(ピル形は廃止。DESIGN.md「意匠方針」参照) */
 
   /* ダークモード(参考案・適用方式は未確定) */
   --color-bg-dark: #211c17; /* 焦げ茶ベース(無彩色グレーは不使用) */
@@ -62,7 +62,7 @@
   h3,
   h4 {
     @apply tracking-tight;
-    scroll-margin-top: 6rem; /* ヘッダー分を考慮 */
+    scroll-margin-top: 6rem; /* アンカー移動時、見出しが画面上端(モバイル目次のstickyバー)に隠れないよう余白を取る */
   }
 
   /* サムネイル画像がない記事用のプレースホルダー柄(斜めストライプ) */
@@ -135,8 +135,8 @@
 }
 
 .prose .copy-button {
-  /* ピル(枠+丸角)をやめ、文字だけのボタンにする。横スクロールしたコードの上に重なっても
-     読めるよう、背景は半透明+ぼかしで残す(角は小さく丸めるだけ) */
+  /* 枠なしの文字ボタン。横スクロールしたコードの上に重なっても読めるよう、
+     背景は半透明+ぼかしで残す(角は小さく丸めるだけ) */
   @apply bg-surface/80 text-text-sub absolute right-2 top-2 rounded-md px-2 py-1 font-mono text-xs backdrop-blur transition-colors;
   @apply hover:text-text cursor-pointer hover:underline;
 }

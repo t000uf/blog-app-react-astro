@@ -71,7 +71,7 @@ const TocList = ({ title, toc, activeId, onSelect }) => {
 
   return (
     <div>
-      <h3 className="text-accent mb-2 hidden text-lg font-medium md:block md:text-xl">もくじ</h3>
+      <h3 className="font-accent mb-2 hidden text-lg font-medium md:block md:text-xl">もくじ</h3>
       <a
         href={`#${TITLE_ID}`}
         onClick={onSelect}
@@ -86,6 +86,7 @@ const TocList = ({ title, toc, activeId, onSelect }) => {
         {toc.map((item) => {
           const isActive = activeId === item.id;
           // h3にいるとき、その親h2は「今いるセクション」として控えめにハイライトする
+          // (色だけ。太字+字下げの現在地そのものと見分けられるようにする)
           const isActiveSection = !isActive && item.id === activeSectionId;
           const activeColor = item.level === 'h2' ? 'text-teal-strong' : 'text-pink-strong';
           return (
@@ -96,7 +97,7 @@ const TocList = ({ title, toc, activeId, onSelect }) => {
                 className={cn(
                   'hover:text-teal-strong transition-all duration-300 hover:underline',
                   isActive && `${activeColor} translate-x-1 font-bold`,
-                  isActiveSection && 'text-teal-strong font-bold',
+                  isActiveSection && 'text-teal-strong',
                 )}
               >
                 {item.text}
@@ -158,8 +159,8 @@ const MobileToc = ({ title, toc, activeId }) => {
         aria-controls="toc-panel"
         className="bg-surface/60 border-teal-strong rounded-panel flex w-full items-center gap-2 border p-3 text-left shadow-lg backdrop-blur-xl"
       >
-        <span className="text-text-sub text-accent shrink-0 text-sm font-medium">もくじ：</span>
-        <span className="text-accent truncate font-medium">{currentText}</span>
+        <span className="text-text-sub font-accent shrink-0 text-sm font-medium">もくじ：</span>
+        <span className="font-accent truncate font-medium">{currentText}</span>
         {/* 文字の「▾」はベースライン基準で配置され、グリフの中心とボックス中心がズレる。
             rotate-180するとその差が倍になって浮くので、中心が図形として保証されるSVGを使う */}
         <svg
