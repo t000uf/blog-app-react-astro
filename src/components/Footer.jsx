@@ -10,7 +10,7 @@ export const Footer = ({ siteName }) => {
     title: 'text-2xl text-text font-brand',
     nav: 'flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4',
     link: 'text-sm text-text hover:text-teal-strong transition-colors',
-    copyright: 'text-xs text-text-sub font-mono',
+    copyright: 'text-xs text-text-sub font-body',
   };
 
   return (
