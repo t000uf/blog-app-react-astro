@@ -9,7 +9,7 @@ export const IndexPage = ({ blogs, admin }) => {
       <Introduction />
       <BlogList blogs={blogs} />
       <section className="pt-4 md:pt-6">
-        <h2 className="font-brand mb-3 text-xl md:text-2xl">かんりにん</h2>
+        <h2 className="font-accent mb-3 text-xl font-medium md:text-2xl">かんりにん</h2>
         <AuthorCard author={admin} />
       </section>
     </WaveBand>

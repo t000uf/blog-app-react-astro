@@ -22,7 +22,7 @@
   --color-text-sub: #9c9082;
 
   /* フォント */
-  --font-brand: 'Zen Kurenaido'; /* ロゴ・トップの「かんりにん」見出し */
+  --font-brand: 'Zen Kurenaido'; /* ロゴ(ヘッダー/フッター)のみ */
   --font-heading: 'Noto Sans JP'; /* 日付(記事カード・記事ヒーロー)・404見出し */
   --font-body: 'Zen Kaku Gothic New'; /* 本文 */
   --font-accent: 'Zen Maru Gothic'; /* 見出し全般(カードタイトル・記事タイトル・本文見出し・目次) */
