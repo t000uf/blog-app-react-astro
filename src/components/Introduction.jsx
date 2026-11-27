@@ -1,17 +1,9 @@
-import { AuthorCard } from '@/components/AuthorCard';
-
-export const Introduction = ({ admin }) => {
+export const Introduction = () => {
   return (
-    <section className="bg-surface/92 box-border rounded-2xl p-4 shadow-lg md:p-5">
-      <div className="mb-5">
-        <p>東福なずなのブログへようこそ！</p>
-      </div>
-      <div>
-        <h2 className="mb-2 text-lg md:text-xl">かんりにん</h2>
-        <div>
-          <AuthorCard author={admin} />
-        </div>
-      </div>
+    <section className="pb-4 md:pb-6">
+      <h2 className="font-accent text-text text-lg font-medium md:text-xl">
+        東福なずなのブログへようこそ！
+      </h2>
     </section>
   );
 };

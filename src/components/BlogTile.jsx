@@ -47,40 +47,38 @@ export const BlogTile = ({ blog, isHero = false }) => {
 
   const styles = {
     blogTile: cn(
-      'bg-surface rounded-panel group relative flex min-w-0 flex-col overflow-hidden shadow-sm',
-      'transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
-      'hover:-translate-y-1 hover:shadow-xl',
-      isActive && '-translate-y-1 shadow-xl',
-      isHero
-        ? 'border-pink border-2 md:col-span-full md:flex-row'
-        : 'border-teal col-span-1 flex-col border',
+      // カード自体は背景・枠・影を持たない。画像と文字だけを帯の上に直接置く。
+      // ホバー演出は画像の拡大1つに絞る。
+      'group relative flex min-w-0 flex-col',
+      isHero ? 'md:col-span-full md:flex-row' : 'col-span-1',
     ),
+    // カードの面がなくなったので、角丸と枠線は画像自身が持つ(拡大時のはみ出しもここでクリップ)。
+    // 枠の色は従来のカード枠と同じ: 通常=ティール細枠 / ヒーロー=ピンク太枠
     tileImgWrap: cn(
-      'rounded-b-panel w-full overflow-hidden',
-      isHero && 'md:rounded-r-panel md:w-1/2 md:shrink-0 md:rounded-bl-none',
+      'rounded-panel w-full overflow-hidden',
+      isHero ? 'border-pink border-2 md:w-1/2 md:shrink-0' : 'border-teal border',
     ),
     tileImg: cn(
       'bg-surface-2 aspect-3/2 w-full object-cover',
-      'ease-[cubic-bezier(0.34, 1.56, 0.64, 1)] transition-transform duration-500 will-change-transform',
-      'group-hover:scale-110',
-      isActive && 'scale-110',
+      'transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform',
+      'group-hover:scale-105',
+      isActive && 'scale-105',
       // isHeroの横並び時はアスペクト比固定をやめ、カード高さいっぱいに伸ばす
-      isHero && 'md:aspect-auto md:h-full md:min-h-60',
+      isHero && 'md:aspect-16/9 md:h-full md:min-h-60',
     ),
     tileText: cn(
-      'flex w-full min-w-0 flex-col justify-center gap-2 p-4',
-      isHero && 'justify-center gap-3',
+      // 箱がないので左右の余白は取らず、文字の左端を画像の左端に揃える。
+      // ヒーローの横並び時だけ、画像との間を空ける。
+      'flex w-full min-w-0 flex-col justify-center gap-2 py-3',
+      isHero && 'gap-3 md:py-4 md:pl-6',
     ),
-    tileTitle: cn('wrap-break-word font-body line-clamp-2 text-xl font-bold lg:text-2xl'),
-    tileTitleUnderline: cn(
-      'block h-0.5 w-0 transition-all duration-300 group-hover:w-full',
-      isActive && 'w-full',
-      isHero ? 'bg-teal' : 'bg-pink',
-    ),
-    tileDate: cn('text-text-sub w-full font-mono text-xs'),
-    featuredBadge: cn(
-      'bg-pink text-pink-strong rounded-chip max-h-content min-w-12 px-3 py-1 text-center text-xs font-bold',
-    ),
+    tileTitle: cn('wrap-break-word font-accent line-clamp-2 text-lg font-medium lg:text-xl'),
+    // 概要とタグは同じ文字サイズで揃える
+    tileDescription: cn('line-clamp-3 w-full text-base'),
+    tileTag: cn('text-base'),
+    tileDate: cn('text-text-sub font-heading w-full text-sm'),
+    // ピル(背景+角丸)ではなく、ピンクの字間を空けた文字ラベルで「特別」を示す
+    featuredLabel: cn('font-body text-pink-strong mb-1 text-sm tracking-widest'),
     tileAnchor: cn('absolute left-0 top-0 size-full text-sm'),
   };
 
@@ -95,15 +93,12 @@ export const BlogTile = ({ blog, isHero = false }) => {
       </div>
       <div className={styles.tileText}>
         <div>
-          <h2 className={styles.tileTitle}>{blog.title}</h2>
-          <span className={styles.tileTitleUnderline} />
+          {isHero && <p className={styles.featuredLabel}>新着記事</p>}
+          <h3 className={styles.tileTitle}>{blog.title}</h3>
         </div>
         <p className={styles.tileDate}>{date}</p>
-        <p className="line-clamp-3 w-full">{blog.description || stripHtml(blog.content)}</p>
-        <div className="flex flex-row items-start justify-between">
-          <TagList tags={blog.tags} />
-          {isHero && <span className={styles.featuredBadge}>注目</span>}
-        </div>
+        <p className={styles.tileDescription}>{blog.description || stripHtml(blog.content)}</p>
+        <TagList tags={blog.tags} tagClassName={styles.tileTag} />
         <a href={`/blogs/${blog.id}`} className={styles.tileAnchor}></a>
       </div>
     </li>

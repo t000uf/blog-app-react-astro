@@ -10,74 +10,111 @@
 
 ### 色
 
-| トークン              | 値        | 用途                                     |
-| --------------------- | --------- | ---------------------------------------- |
-| `--color-bg`          | `#ece3d3` | ページ背景                               |
-| `--color-bg-deep`     | `#e1d6c2` | ブロブ用グラデ下端                       |
-| `--color-surface`     | `#faf6ee` | カード・パネル面                         |
-| `--color-surface-2`   | `#f1e8da` | コードブロック等の入れ子面               |
-| `--color-border`      | `#e4d9c8` | 面の細い境界線                           |
-| `--color-teal`        | `#8fbfb7` | ブランドの差し色(薄)                     |
-| `--color-teal-strong` | `#57938a` | リンク・TOC h2現在地・タグ文字           |
-| `--color-teal-tint`   | `#dcece8` | タグの背景                               |
-| `--color-pink`        | `#e6cdd8` | ブランドの差し色(薄)                     |
-| `--color-pink-strong` | `#a86e91` | 注目バッジ・TOC h3現在地・フッター現在地 |
-| `--color-text`        | `#4a423a` | 本文文字色                               |
-| `--color-text-sub`    | `#9c9082` | 補足文字色(日付・キャプション等)         |
+| トークン              | 値        | 用途                                             |
+| --------------------- | --------- | ------------------------------------------------ |
+| `--color-bg`          | `#f6f3ee` | ページ背景(白寄り。名刺の白ベースに合わせた)     |
+| `--color-bg-deep`     | `#ece6dc` | ブロブ用グラデ下端                               |
+| `--color-surface`     | `#fffdf9` | 面(トップの記事一覧の帯・記事本文パネル)         |
+| `--color-surface-2`   | `#f1e8da` | コードブロック等の入れ子面                       |
+| `--color-border`      | `#e4d9c8` | 面の細い境界線                                   |
+| `--color-stripe`      | `#e1d6c2` | サムネのプレースホルダ柄の濃い側                 |
+| `--color-teal`        | `#8fbfb7` | ブランドの差し色(薄)・通常カードの画像枠         |
+| `--color-teal-strong` | `#57938a` | リンク・TOC h2現在地・タグ文字                   |
+| `--color-teal-tint`   | `#dcece8` | 現状未使用(旧タグピルの背景)                     |
+| `--color-pink`        | `#e6cdd8` | ブランドの差し色(薄)・ヒーロー画像枠・アイコン枠 |
+| `--color-pink-strong` | `#a86e91` | 「新着記事」ラベル・TOC h3現在地                 |
+| `--color-text`        | `#4a423a` | 本文文字色                                       |
+| `--color-text-sub`    | `#9c9082` | 補足文字色(日付・キャプション等)                 |
+
+`--color-stripe` は背景を白寄りにする前の `bg-deep` の値。プレースホルダの柄は従来の濃さのまま残すため、別トークンに分けている。
 
 ダークモード用の `*-dark` トークンも定義済みだが、**適用方式は未確定・現状未使用**。
 
 ### フォント
 
-| トークン         | フォント            | 用途                   |
-| ---------------- | ------------------- | ---------------------- |
-| `--font-brand`   | Zen Kurenaido       | ロゴ・カード見出しのみ |
-| `--font-heading` | Noto Sans JP        | 本文中の見出し全般     |
-| `--font-body`    | Zen Kaku Gothic New | 本文(デフォルト)       |
-| `--font-mono`    | Space Mono          | 日付・コード・数値     |
+| トークン         | フォント            | 用途                                                  |
+| ---------------- | ------------------- | ----------------------------------------------------- |
+| `--font-brand`   | Zen Kurenaido       | ロゴ(ヘッダー/フッター)・トップの「かんりにん」見出し |
+| `--font-accent`  | Zen Maru Gothic     | トップの挨拶見出し・記事カードのタイトル              |
+| `--font-heading` | Noto Sans JP        | 本文中の見出し全般・記事カードの日付                  |
+| `--font-body`    | Zen Kaku Gothic New | 本文(デフォルト)                                      |
+| `--font-mono`    | Space Mono          | コード・記事ヒーローの日付                            |
 
 ### 形状
 
-| トークン         | 値      | 用途                                   |
-| ---------------- | ------- | -------------------------------------- |
-| `--radius-panel` | `20px`  | カード・パネル共通(`rounded-panel`)    |
-| `--radius-chip`  | `999px` | タグ・バッジ・ナビピル(`rounded-chip`) |
+| トークン         | 値      | 用途                                                    |
+| ---------------- | ------- | ------------------------------------------------------- |
+| `--radius-panel` | `20px`  | 画像・パネル共通(`rounded-panel`)                       |
+| `--radius-chip`  | `999px` | トップページ外のピル(AmazonCard・404・コピーボタン)のみ |
+
+## トップページの意匠方針
+
+「UIキット感」を避けるため、引き算を基本にしている。新しい要素を足すときもこれに従う。
+
+- **ピル形(薄い背景 + 小さい太字 + `rounded-chip`)を使わない。** タグは `#` 付きの文字、ラベルは色と字間、ナビ現在地は下線で示す。
+- **箱を入れ子にしない。** 面(背景)を持つのは記事一覧の全幅の帯だけ。その上の要素(カード・AuthorCard)は背景・枠・影を持たない。区切りは余白と文字(フォント・大きさ)で表現する。
+- **演出は1要素につき1つ。** 記事カードのホバー演出は画像の拡大だけ。
 
 ## コンポーネントパターン
 
 ### Header (`Header.jsx`)
 
-- 上部固定ではなく通常フロー、下端に `border-teal` の区切り線。
+- 上部固定ではなく通常フロー。背景・区切り線は持たない(ページ背景がそのまま見える)。
+- `relative z-50`。トップでは記事一覧の帯の波がヘッダーの下に潜り込むので、位置指定して z-index を効かせ、文字を波より手前に出している(`position` が static だと z-index は無視される)。
 - ナビは `md` 以上で表示(モバイルは非表示、ハンバーガー等は未実装)。
-- 現在地リンクは `bg-pink text-pink-strong` のピル、非アクティブは `text-text` + hover で `bg-bg-deep`。
+- リンクは色分けしない(全て `text-text`)。現在地は `decoration-2 underline-offset-8` の下線 + `aria-current="page"`、hover は薄い下線(`decoration-text/30`)。
+- 太字にすると文字幅が変わってページ移動でナビがずれるため、現在地でも太さは変えない。
 - `プロフィール`/`お問い合わせ` は実ページ未実装のため `href="#"` プレースホルダ。
 
 ### Footer (`Footer.jsx`)
 
-- 最小構成: サイト名(`font-brand`)→ ティール区切り線 → リンク行 → ティール区切り線 → コピーライト(`font-mono`)。
+- 最小構成: サイト名(`font-brand`)→ リンク行 → コピーライト(`font-mono`)。区切り線は置かず `gap-2` の余白で分ける。
+- `relative z-40`。ヘッダーと同じ理由で、帯の下側の波より手前に出す。
 - ロゴ再掲・タグライン・筆者情報は置かない。
 
 ### Background (`Background.jsx`)
 
 - 固定・`pointer-events-none` のブロブ2つ(左上=teal/20, 右下=pink/30)を低透明度でぼかし表示。
-- カード等の面(`bg-surface`)は不透明なので、ブロブは余白にのみ透けて見える。
+- 面(`bg-surface`)は不透明なので、ブロブは余白にのみ透けて見える。
+
+### トップページ / IndexPage (`pages/IndexPage.jsx`, `WaveEdge.jsx`)
+
+- 並び順: 挨拶(`Introduction`)→ 記事一覧(`BlogList`)→「かんりにん」(`AuthorCard`)。3つとも1枚の帯の上に載る。
+- **全幅の帯**: 中身は Layout の列幅のまま、背景レイヤーだけを `absolute left-1/2 w-screen -translate-x-1/2` で画面端まで広げる。
+  - 親の `<main>` に `isolate` を付けて重なりの基準を作り、背景レイヤーの負の z-index が `Background`(`-z-9`)より奥に潜らないようにしている。
+  - `w-screen` はスクロールバー幅を含むため、`Layout.astro` の `.main-wrapper` に `overflow-x-clip` を付けて横スクロールを防ぐ。`hidden` だとスクロールコンテナになり目次の `sticky` が壊れるので `clip` を使う。
+- **上下の波(`WaveEdge`)**: 帯の上端/下端の外側に付ける SVG。下端は `-scale-y-100` で上下反転して使う。
+  - 形はシード付き乱数(mulberry32)で決める。`Math.random()` だと SSG とハイドレーションで形が食い違うため。シード(`seed`)を変えると形が変わる。
+  - 点を横に等間隔で並べて高さだけランダムにし、二次ベジェで滑らかにつなぐ。`preserveAspectRatio="none"` で横幅いっぱいに引き伸ばす。
+  - 塗りは viewBox の下端より `OVERLAP` だけ先まで伸ばし(`overflow-visible`)、帯と数px重ねる。ぴったり接するだけだと、表示位置が小数pxになった時にアンチエイリアスで細い線が見えるため。
+  - 帯・波とも不透明色(`bg-surface` / `fill-surface`)で塗る。半透明だと重なった部分が濃くなる。
+  - 波はわざとヘッダー/フッターの下に潜り込ませている(上記 Header/Footer の z-index を参照)。
+
+### Introduction (`Introduction.jsx`)
+
+- 挨拶文1行のみ(props なし)。パネル・背景は持たず、`font-accent` の見出しとして帯の上に直接置く。
 
 ### 記事カード / BlogTile (`blogTile.jsx`)
 
-- 通常カード: `border-teal` の細枠。ヒーロー(`isHero`, 先頭記事): `border-pink` の太め枠 + 右上に「注目」ピル(`bg-pink text-pink-strong`)。
+- カード自体は背景・枠・影を持たない。画像と文字を帯の上に直接置く。文字は左右の余白を取らず、画像の左端に揃える。
+- 角丸(`rounded-panel`)と枠線は画像のラッパーが持つ。通常カード: `border-teal` の1px枠。ヒーロー(`isHero`, 先頭記事): `border-pink` の2px枠。ラッパーの `overflow-hidden` が拡大時の画像も切り取る。
+- ヒーローは `md` 以上で横並び(画像 `md:w-1/2`)。タイトルの上に「新着記事」の文字ラベル(`text-pink-strong tracking-widest`、背景なし)。
+- 文字: タイトル `font-accent font-medium text-lg lg:text-xl`(2行まで)、日付 `font-heading text-sm text-text-sub`、概要とタグは同じ `text-base` で揃える。
 - タグは共通の `TagList`(下記)を使用。
-- ホバー: カードが軽く浮き上がり(`-translate-y-1` + `shadow-xl`)、タイトル下の下線が伸びる(`tileTitleUnderline`、色はヒーロー=teal / 通常=pink)。
-- サムネ欠損時は `bg-surface-2` のプレースホルダ面にフォールバック。
+- ホバー演出は画像の拡大(`scale-105`)だけ。スマホ(hoverなし端末)では `useCenterActive` で画面の判定帯に入ったカードに同じ拡大を付ける。
+- サムネ欠損時は `thumbnail-placeholder`(`--color-stripe` のストライプ柄)にフォールバック。
+- 一覧の間隔は `BlogList` の `gap-x-5 gap-y-6`。
 
 ### Tag / TagList (`Tag.jsx`)
 
-- タグピルの共通コンポーネント。`bg-teal-tint text-teal-strong` の小ピル。
+- 背景・角丸を持たない `#` 付きテキスト(`#日記`)。既定は `text-teal-strong text-xs`、`max-w-32` を超える名前は省略表示。
+- 色やサイズは `tagClassName` で上書きする(記事カードは `text-base`、記事ヒーローは黒スクリム上なので `text-white/80`)。
 - `TagList` は `tags` が空/未定義なら何も描画しない。カード一覧・記事ヒーロー両方で共用。
 
 ### ArticleHero (`ArticleHero.jsx`)
 
-- サムネ画像(欠損時は `bg-surface-2` 面)の上に、下部固定のグラデーションスクリム(`from-black/70`)でタグ・タイトル・日付を重ね表示。
-- タイトルは白文字 `font-heading`、日付は `font-mono` の白系。
+- サムネ画像(欠損時は `thumbnail-placeholder`)の上に、下部固定のグラデーションスクリム(`from-black/70`)でタグ・タイトル・日付を重ね表示。
+- タイトルは白文字 `font-body` の太字、タグと日付(`font-mono`)は `text-white/80`。
 
 ### ArticleBody (`ArticleBody.jsx`)
 
@@ -102,10 +139,9 @@ TOCの現在地カラーと対応させている:
 
 ### AuthorCard (`AuthorCard.jsx`)
 
-- カード共通規約(`bg-surface` + `border-teal` + `rounded-panel` + `overflow-hidden`)を踏襲。
-- アイコンは円形で左端に絶対配置し、コンテナの上下左をはみ出させて縁でクロップ(`absolute left-0 top-1/2 -translate-x-1/4 -translate-y-1/2`)。アイコン自体に`border-pink`。
-- テキスト(名前・プロフィール)は右側・縦中央寄せ。アイコン分の余白は`pl-24 md:pl-32`で確保。
-- `ArticleBody`から`author`がある場合のみ「書いたひと」見出しとセットで表示。
+- 自身は背景・枠・影を持たない。置かれる面(トップの帯/記事本文パネル)の上に直接乗る。
+- 円形アイコン(`size-20 md:size-24`、`border-pink border-2`)と、名前・プロフィールの横並び(`flex items-center gap-4 md:gap-5`)。
+- トップでは記事一覧の下に「かんりにん」(`font-brand`)見出しとセットで表示。`ArticleBody`では`author`がある場合のみ「書いたひと」見出しとセットで表示。
 
 ### TableOfContents (`TableOfContents.jsx`)
 

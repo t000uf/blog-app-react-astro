@@ -3,11 +3,12 @@
 
 @theme {
   /* 背景・面 */
-  --color-bg: #ece3d3;
-  --color-bg-deep: #e1d6c2; /* ブロブ用グラデ下端 */
-  --color-surface: #faf6ee; /* カード・パネル面 */
+  --color-bg: #f6f3ee;
+  --color-bg-deep: #ece6dc; /* ブロブ用グラデ下端 */
+  --color-surface: #fffdf9; /* カード・パネル面 */
   --color-surface-2: #f1e8da; /* コードブロック等の入れ子面 */
   --color-border: #e4d9c8; /* 面の細い境界線 */
+  --color-stripe: #e1d6c2; /* サムネのプレースホルダ柄の濃い側(背景を白寄りにする前のbg-deepの値) */
 
   /* ブランド・差し色(既存のmain-blue/sub-pinkを整理・改名) */
   --color-teal: #8fbfb7;
@@ -24,6 +25,7 @@
   --font-brand: 'Zen Kurenaido'; /* ロゴ・カード見出しのみ */
   --font-heading: 'Noto Sans JP'; /* 本文中の見出し全般 */
   --font-body: 'Zen Kaku Gothic New'; /* 本文 */
+  --font-accent: 'Zen Maru Gothic'; /* アクセント */
   --font-mono: 'Space Mono'; /* 日付・コード・数値 */
 
   /* 形状 */
@@ -68,7 +70,7 @@
     background-image: repeating-linear-gradient(
       45deg,
       var(--color-surface-2) 0 10px,
-      var(--color-bg-deep) 10px 20px
+      var(--color-stripe) 10px 20px
     );
   }
 }

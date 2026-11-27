@@ -10,3 +10,6 @@ import '@fontsource/space-mono/400.css';
 import '@fontsource/space-mono/700.css';
 import '@fontsource/space-mono/400-italic.css';
 import '@fontsource/space-mono/700-italic.css';
+import '@fontsource/zen-maru-gothic/400.css';
+import '@fontsource/zen-maru-gothic/500.css';
+import '@fontsource/zen-maru-gothic/700.css';

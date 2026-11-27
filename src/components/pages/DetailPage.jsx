@@ -9,7 +9,7 @@ export const DetailPage = ({ blog, associateTag }) => {
         href="/"
         className="hover:text-teal-strong mb-3 inline-block underline transition-colors duration-300"
       >
-        ← 記事一覧へ
+        ← ホームへ
       </a>
       <ArticleHero blog={blog} />
       <div className="flex w-full flex-col-reverse justify-between gap-4 lg:flex-row">
