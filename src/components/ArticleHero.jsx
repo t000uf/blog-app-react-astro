@@ -5,7 +5,8 @@ export const ArticleHero = ({ blog }) => {
   const imageUrl = blog.thumbnail?.url ? `${blog.thumbnail.url}?w=800&fm=webp` : '';
 
   return (
-    <div className="bg-surface-2 rounded-panel relative mb-4 box-border overflow-hidden md:mb-6">
+    // 枠はトップのヒーローカードの画像と同じピンク太枠。overflow-hiddenで画像とスクリムも角丸に収める
+    <div className="bg-surface-2 rounded-panel border-pink relative mb-4 box-border overflow-hidden border-2 md:mb-6">
       {imageUrl ? (
         <img
           src={imageUrl}
