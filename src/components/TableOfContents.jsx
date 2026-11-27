@@ -158,8 +158,8 @@ const MobileToc = ({ title, toc, activeId }) => {
         aria-controls="toc-panel"
         className="bg-surface/60 border-teal-strong rounded-panel flex w-full items-center gap-2 border p-3 text-left shadow-lg backdrop-blur-xl"
       >
-        <span className="text-text-sub shrink-0 text-sm font-bold">もくじ：</span>
-        <span className="truncate font-bold">{currentText}</span>
+        <span className="text-text-sub text-accent shrink-0 text-sm font-medium">もくじ：</span>
+        <span className="text-accent truncate font-medium">{currentText}</span>
         {/* 文字の「▾」はベースライン基準で配置され、グリフの中心とボックス中心がズレる。
             rotate-180するとその差が倍になって浮くので、中心が図形として保証されるSVGを使う */}
         <svg
