@@ -1,6 +1,6 @@
 const FOOTER_LINKS = [
   { label: 'ホーム', href: '/' },
-  { label: 'このブログについて', href: '/about' },
+  { label: 'このサイトについて', href: '/about' },
 ];
 
 export const Footer = ({ siteName }) => {

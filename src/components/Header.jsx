@@ -2,8 +2,8 @@ import '@/styles/global.css';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
-  { label: '記事一覧', href: '/' },
-  { label: 'このブログについて', href: '/about' },
+  { label: 'ホーム', href: '/' },
+  { label: 'このサイトについて', href: '/about' },
 ];
 
 export const Header = ({ currentPath = '/', siteName }) => {
