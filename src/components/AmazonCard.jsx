@@ -1,5 +1,3 @@
-import { cn } from '@/lib/utils';
-
 // アソシエイトリンクを組み立てる純粋関数。ASINだけを受け取り、タグはenv由来の値を渡してもらう。
 // 将来PA-API化しても遷移先URLの形は変わらないため、この関数はそのまま使える（Issue #55）。
 export const buildAmazonUrl = (asin, associateTag) => {
@@ -19,10 +17,9 @@ export const AmazonCard = ({ product, associateTag }) => {
       target="_blank"
       // sponsored: アフィリエイトリンクの表明 / nofollow: 評価を渡さない / noopener: opener乗っ取り防止
       rel="sponsored nofollow noopener"
-      className={cn(
-        'bg-surface rounded-panel border-teal not-prose group flex flex-col items-center gap-4 overflow-hidden border p-4 no-underline shadow-sm md:flex-row',
-        'transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md',
-      )}
+      // 外部リンクのまとまりだと分かるよう枠線だけ残し、影・浮き上がりは付けない。
+      // ホバー演出は「Amazonで見る」の下線1つに絞る。
+      className="rounded-panel border-teal not-prose group flex flex-col items-center gap-4 overflow-hidden border p-4 no-underline md:flex-row"
     >
       <div className="bg-surface-2 rounded-panel size-48 shrink-0 overflow-hidden p-1 md:size-28">
         {imageUrl ? (
@@ -39,7 +36,8 @@ export const AmazonCard = ({ product, associateTag }) => {
       </div>
       <div className="flex min-w-0 flex-col gap-2">
         <p className="text-text wrap-break-word line-clamp-3 text-sm font-bold">{product.title}</p>
-        <span className="text-pink-strong bg-pink rounded-chip w-fit px-3 py-1 text-xs font-bold">
+        {/* ピル(背景+角丸)ではなく文字リンクにする */}
+        <span className="text-pink-strong w-fit text-sm font-medium decoration-2 underline-offset-4 group-hover:underline">
           Amazonで見る →
         </span>
       </div>

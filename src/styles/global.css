@@ -135,17 +135,19 @@
 }
 
 .prose .copy-button {
-  @apply border-border bg-surface/80 text-text-sub rounded-chip absolute right-2 top-2 border px-2 py-1 font-mono text-xs backdrop-blur transition-colors;
-  @apply hover:bg-surface hover:text-text cursor-pointer;
+  /* ピル(枠+丸角)をやめ、文字だけのボタンにする。横スクロールしたコードの上に重なっても
+     読めるよう、背景は半透明+ぼかしで残す(角は小さく丸めるだけ) */
+  @apply bg-surface/80 text-text-sub absolute right-2 top-2 rounded-md px-2 py-1 font-mono text-xs backdrop-blur transition-colors;
+  @apply hover:text-text cursor-pointer hover:underline;
 }
 
-/* コピー成功/失敗時の一時的な状態(クラスはArticleBody側で付け外しする) */
+/* コピー成功/失敗時の一時的な状態(クラスはArticleBody側で付け外しする)。文字色だけで伝える */
 .prose .copy-button.is-copied {
-  @apply border-teal text-teal-strong;
+  @apply text-teal-strong;
 }
 
 .prose .copy-button.is-failed {
-  @apply border-pink-strong text-pink-strong;
+  @apply text-pink-strong;
 }
 
 /* コンテナ側でマージンと角丸を持つため、<pre>自身の縦マージンは打ち消す。
