@@ -2,6 +2,7 @@
 import { client, type About } from '@/lib/microcms';
 import { formatDate, resizeMicrocmsImages } from '@/lib/utils';
 import Layout from '@/layouts/Layout.astro';
+import { WaveBand } from '@/components';
 
 // オブジェクト形式APIなので、レスポンスがそのまま単一オブジェクト
 const about = (await client.get({ endpoint: 'about' })) as About;
@@ -13,11 +14,14 @@ const date = formatDate(about.updatedAt);
   description={`${about.title}`}
   publishedTime={new Date(about.updatedAt).toISOString()}
 >
-  <article class="bg-surface rounded-panel box-border p-4 shadow-lg md:p-6">
-    <h1 class="font-heading text-text mb-4 text-2xl font-bold md:text-3xl">
-      {about.title}
-    </h1>
-    <p class="text-right text-sm">{date} 更新</p>
-    <div class="wrap-break-word prose max-w-none" set:html={resizeMicrocmsImages(about.body)} />
-  </article>
+  {/* client:なしで使うので、ただの静的HTMLとして描画される(JSは送られない) */}
+  <WaveBand topSeed={5} bottomSeed={2}>
+    <article>
+      <h1 class="font-accent text-text text-xl font-medium">
+        {about.title}
+      </h1>
+      <p class="text-right text-sm">{date} 更新</p>
+      <div class="wrap-break-word prose max-w-none" set:html={resizeMicrocmsImages(about.body)} />
+    </article>
+  </WaveBand>
 </Layout>

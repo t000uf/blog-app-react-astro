@@ -82,7 +82,9 @@ const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
   @reference "@/styles/global.css";
 
   .main-wrapper {
-    @apply text-text flex size-full justify-center px-3 py-4 lg:px-10;
+    /* overflow-x-clip: 画面幅いっぱいの背景(w-screen)がスクロールバー分はみ出して横スクロールが出るのを防ぐ。
+       hiddenと違いスクロールコンテナを作らないので、目次のstickyは壊れない。 */
+    @apply text-text flex size-full justify-center overflow-x-clip px-3 lg:px-0;
   }
 
   .content-body {

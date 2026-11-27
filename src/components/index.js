@@ -12,3 +12,4 @@ export * from './pages/DetailPage';
 export * from './pages/IndexPage';
 export * from './TableOfContents';
 export * from './Tag';
+export * from './WaveBand';

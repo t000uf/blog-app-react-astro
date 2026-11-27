@@ -1,18 +1,17 @@
+import { AuthorCard } from '@/components/AuthorCard';
 import { BlogList } from '@/components/BlogList';
 import { Introduction } from '@/components/Introduction';
-
-const styles = {
-  listContainer: 'bg-surface/92 rounded-panel p-4 pb-6 md:p-5 md:pb-8 box-border shadow-lg',
-};
+import { WaveBand } from '@/components/WaveBand';
 
 export const IndexPage = ({ blogs, admin }) => {
   return (
-    <>
-      <Introduction admin={admin} />
-      <main className={styles.listContainer}>
-        <h2 className="font-heading text-text-sub mb-4 text-lg font-bold md:text-xl">記事一覧</h2>
-        <BlogList blogs={blogs} />
-      </main>
-    </>
+    <WaveBand topSeed={5} bottomSeed={2}>
+      <Introduction />
+      <BlogList blogs={blogs} />
+      <section className="pt-4 md:pt-6">
+        <h2 className="font-accent mb-3 text-xl font-medium md:text-2xl">かんりにん</h2>
+        <AuthorCard author={admin} />
+      </section>
+    </WaveBand>
   );
 };

@@ -1,16 +1,18 @@
-export const Tag = ({ name }) => (
-  <span className="bg-teal-tint text-teal-strong rounded-chip max-w-24 truncate px-3 py-1 text-xs font-bold">
-    {name}
-  </span>
+import { cn } from '@/lib/utils';
+
+// 背景・角丸を持たない「#付きテキスト」のタグ。
+// 色を変えたい場所(例: 画像上のスクリム)では className で上書きする。
+export const Tag = ({ name, className = '' }) => (
+  <span className={cn('text-teal-strong max-w-32 truncate text-sm', className)}>#{name}</span>
 );
 
-export const TagList = ({ tags, className = '' }) => {
+export const TagList = ({ tags, className = '', tagClassName = '' }) => {
   if (!tags || tags.length === 0) return null;
 
   return (
-    <div className={`flex min-w-0 flex-wrap gap-1.5 ${className}`}>
+    <div className={cn('flex min-w-0 flex-wrap gap-x-3 gap-y-1', className)}>
       {tags.map((tag) => (
-        <Tag key={tag.id} name={tag.name} />
+        <Tag key={tag.id} name={tag.name} className={tagClassName} />
       ))}
     </div>
   );

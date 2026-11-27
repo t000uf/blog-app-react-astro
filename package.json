@@ -18,6 +18,7 @@
     "@fontsource/space-mono": "^5.2.9",
     "@fontsource/zen-kaku-gothic-new": "^5.2.7",
     "@fontsource/zen-kurenaido": "^5.2.8",
+    "@fontsource/zen-maru-gothic": "^5.3.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",

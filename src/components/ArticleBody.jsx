@@ -3,7 +3,7 @@ import { AmazonCard } from '@/components/AmazonCard';
 import { AuthorCard } from '@/components/AuthorCard';
 import { resizeMicrocmsImages, splitAmazonShortcodes } from '@/lib/utils';
 
-const headingClass = 'font-heading mb-2 mt-6 text-lg font-bold text-text-sub md:text-xl';
+const headingClass = 'font-accent mb-3 text-lg font-medium text-text md:text-xl';
 
 const proseClass = 'prose max-w-none wrap-break-word';
 
@@ -92,7 +92,7 @@ export const ArticleBody = ({ description, content, author, products, associateT
   }, [content]);
 
   return (
-    <article className="bg-surface rounded-panel lg:max-w-8/12 box-border w-full min-w-0 p-4 shadow-lg md:p-6">
+    <article className="lg:max-w-8/12 box-border w-full min-w-0 px-2">
       {description && (
         <>
           <h2 className={headingClass}>概要</h2>
@@ -120,15 +120,15 @@ export const ArticleBody = ({ description, content, author, products, associateT
         )}
       </div>
       {author && (
-        <div className="mt-4">
+        <div className="mt-6">
           <h2 className={headingClass}>書いたひと</h2>
           <AuthorCard author={author} />
         </div>
       )}
       {products?.length > 0 && (
-        <div className="mt-4">
+        <div className="mt-6">
           <h2 className={headingClass}>紹介したもの</h2>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {/* 同じASINが2件登録されてもkeyが衝突しないよう位置を混ぜる */}
             {products.map((product, i) => (
               <AmazonCard
@@ -140,7 +140,7 @@ export const ArticleBody = ({ description, content, author, products, associateT
           </div>
         </div>
       )}
-      <div className="my-4 text-center">
+      <div className="my-6 text-center">
         <a href="#top" className="underline">
           ↑　上にもどる
         </a>

@@ -1,15 +1,16 @@
 import { ArticleHero } from '@/components/ArticleHero';
 import { ArticleBody } from '@/components/ArticleBody';
 import { TableOfContents } from '@/components/TableOfContents';
+import { WaveBand } from '@/components/WaveBand';
 
 export const DetailPage = ({ blog, associateTag }) => {
   return (
-    <main>
+    <WaveBand topSeed={5} bottomSeed={2}>
       <a
         href="/"
         className="hover:text-teal-strong mb-3 inline-block underline transition-colors duration-300"
       >
-        ← 記事一覧へ
+        ← ホームへ
       </a>
       <ArticleHero blog={blog} />
       <div className="flex w-full flex-col-reverse justify-between gap-4 lg:flex-row">
@@ -22,6 +23,6 @@ export const DetailPage = ({ blog, associateTag }) => {
         />
         <TableOfContents title={blog.title} contents={blog.content} />
       </div>
-    </main>
+    </WaveBand>
   );
 };

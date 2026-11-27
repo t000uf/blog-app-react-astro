@@ -1,27 +1,29 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { WaveBand } from '@/components';
 ---
 
 <Layout title="ページが見つかりません">
-  <section class="not-found">
-    <p class="code">404</p>
-    <h1 class="heading">ページが見つかりません</h1>
-    <p class="lead">
-      お探しのページは削除されたか、URLが変更された可能性があります。
-    </p>
-    <a href="/" class="home-link">トップへ戻る</a>
-  </section>
+  <WaveBand topSeed={7} bottomSeed={4}>
+    <section class="not-found">
+      <p class="code">404</p>
+      <h1 class="heading">ページが見つかりません</h1>
+      <p class="lead">お探しのページは削除されたか、URLが変更された可能性があります。</p>
+      <a href="/" class="home-link">← ホームへ戻る</a>
+    </section>
+  </WaveBand>
 </Layout>
 
 <style>
   @reference "@/styles/global.css";
 
   .not-found {
-    @apply bg-surface rounded-panel flex flex-col items-center p-8 text-center shadow-lg md:p-12;
+    /* 帯(WaveBand)の上に直接置くので、面・角丸・影は持たない */
+    @apply flex flex-col items-center py-8 text-center md:py-12;
   }
 
   .code {
-    @apply font-mono text-text-sub text-6xl font-bold md:text-7xl;
+    @apply text-text-sub font-mono text-6xl font-bold md:text-7xl;
   }
 
   .heading {
@@ -33,6 +35,7 @@ import Layout from '@/layouts/Layout.astro';
   }
 
   .home-link {
-    @apply rounded-chip bg-pink text-pink-strong hover:bg-bg-deep mt-6 px-5 py-2 font-bold transition-colors;
+    /* ピルのボタンではなく、記事詳細の「← ホームへ」と同じ下線付きの文字リンク */
+    @apply hover:text-teal-strong mt-6 underline transition-colors duration-300;
   }
 </style>
